@@ -8,7 +8,7 @@ public class SongMapper {
     public static Song toDomain(SongEntity entity) {
         return new Song(
                 entity.getId(),
-                entity.getTitle(),
+                entity.getTitle(),  
                 entity.getArtist(),
                 entity.getAlbum(),
                 entity.getGenre()
