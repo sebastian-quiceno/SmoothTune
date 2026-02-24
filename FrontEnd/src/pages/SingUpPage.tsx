@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../services/authService";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -26,8 +28,19 @@ const SignUp = () => {
 
     setPasswordError(false); // si todo está bien
 
-    // 🔐 Aquí luego llamas a tu backend (Spring Boot)
-    console.log({ email, password });
+    // llamada a tu backend (Spring Boot)
+    try {
+
+      const response = await signUp({ email, username, password });
+
+      console.log(response);
+
+      localStorage.setItem("token", response.token);
+
+      navigate("/home");
+    } catch {
+      setError("No se pudo crear la cuenta");
+    }
 
     // Simulación de login exitoso
     navigate("/home");
@@ -62,6 +75,19 @@ const SignUp = () => {
 
           <div>
             <label className="block text-gray-300 mb-1">
+              Nombre de usuario
+            </label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="ingrese su nombre de usuario"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-300 mb-1">
               Introduzca su contraseña
             </label>
             <input
@@ -80,7 +106,7 @@ const SignUp = () => {
             <input
               type="password"
               className={`w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 
-								${ passwordError ? "border border-red-500 focus:ring-red-500": "focus:ring-green-500" }`}
+								${passwordError ? "border border-red-500 focus:ring-red-500" : "focus:ring-green-500"}`}
               placeholder="********"
               value={password2}
               onChange={(e) => {

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signIn } from "../services/authService";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -8,7 +9,8 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //Evita recargar la pagina al hacer submit, lo maneja manualmente
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -16,8 +18,16 @@ const SignIn = () => {
       return;
     }
 
-    // 🔐 Aquí luego llamas a tu backend (Spring Boot)
-    console.log({ email, password });
+    // llamada a tu backend (Spring Boot)
+    try {
+      const response = await signIn({ email, password });
+
+      localStorage.setItem("token", response.token);
+
+      navigate("/home");
+    } catch{
+      setError("Email o contraseña incorrectos");
+    }
 
     // Simulación de login exitoso
     navigate("/home");
@@ -28,7 +38,7 @@ const SignIn = () => {
       className="min-h-screen flex items-center justify-center bg-gray-900"
       style={{ backgroundImage: "url('/bandaTocando.png')" }}
     >
-			<div className="absolute inset-0 bg-black/70"></div>
+      <div className="absolute inset-0 bg-black/70"></div>
       <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8 relative z-10 justify-center">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Iniciar sesión
