@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signIn } from "../services/authService";
+import ButtonSubmit from '../components/ButtonSubmit'
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -29,8 +30,6 @@ const SignIn = () => {
       setError("Email o contraseña incorrectos");
     }
 
-    // Simulación de login exitoso
-    navigate("/home");
   };
 
   return (
@@ -39,7 +38,7 @@ const SignIn = () => {
       style={{ backgroundImage: "url('/bandaTocando.png')" }}
     >
       <div className="absolute inset-0 bg-black/70"></div>
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8 relative z-10 justify-center">
+      <div className="w-full max-w-md bg-[#1A192A] rounded-2xl shadow-lg p-8 relative z-10 justify-center">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Iniciar sesión
         </h2>
@@ -71,18 +70,14 @@ const SignIn = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-black font-semibold py-2 rounded-lg transition"
-          >
-            Entrar
-          </button>
+          <ButtonSubmit text="Entrar"/>
+          
         </form>
 
         <p className="text-gray-400 text-sm text-center mt-6">
           ¿No tienes cuenta?{" "}
           <span
-            className="text-green-400 cursor-pointer hover:underline"
+            className="text-[#58BDDE] cursor-pointer hover:underline"
             onClick={() => navigate("/singup")}
           >
             Regístrate

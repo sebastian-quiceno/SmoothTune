@@ -1,25 +1,33 @@
 package com.group.smoothtune.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 public class Playlist {
 
     private Long id;
     private String name;
     private Long ownerId;
-    private List<Long> songIds;
 
-    public Playlist(
-            Long id,
-            String name,
-            Long ownerId,
-            List<Long> songIds
-    ) {
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    private List<Long> playlistSongs;
+
+    public Playlist(String name, Long ownerId) {
+        this.name = name;
+        this.ownerId = ownerId;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public Playlist(Long id, String name, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt, List<Long> playlistSongs) {
         this.id = id;
         this.name = name;
         this.ownerId = ownerId;
-        this.songIds = songIds;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.playlistSongs = playlistSongs;
     }
 
     public Long getId() {
@@ -34,7 +42,26 @@ public class Playlist {
         return ownerId;
     }
 
-    public List<Long> getSongIds() {
-        return songIds;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public List<Long> getPlaylistSongs() {
+        return playlistSongs;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
+
+
+

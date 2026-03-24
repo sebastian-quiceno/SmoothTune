@@ -1,16 +1,16 @@
 package com.group.smoothtune.controllers;
 
-import com.group.smoothtune.dtos.AuthResponseDTO;
-import com.group.smoothtune.dtos.SignInRequestDTO;
-import com.group.smoothtune.aplication.auth.SignInService;
-import com.group.smoothtune.aplication.auth.SignUpService;
-import com.group.smoothtune.dtos.SignUpRequestDTO;
+import com.group.smoothtune.application.dtos.AuthResponseDTO;
+import com.group.smoothtune.application.dtos.SignInRequestDTO;
+import com.group.smoothtune.auth.SignInService;
+import com.group.smoothtune.auth.SignUpService;
+import com.group.smoothtune.application.dtos.SignUpRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 

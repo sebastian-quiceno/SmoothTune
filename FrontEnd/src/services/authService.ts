@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:8080/auth";
+import axios from "axios";
+import apiClient from "../apis/apiClient";
 
 export interface SignInRequest {
   email: string;
@@ -11,40 +12,55 @@ export interface SignUpRequest {
   password: string;
 }
 
-//Crea la solicitud para el backEnd
-export async function signIn(data: SignInRequest) {
-    
-  const response = await fetch(`${API_URL}/signin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-
-  if (!response.ok) {
-    throw new Error("Credenciales inválidas");
+function getApiErrorMessage(error: unknown, fallbackMessage: string) {
+  if (axios.isAxiosError<{ message?: string }>(error)) {
+    return error.response?.data?.message || fallbackMessage;
   }
 
-  return response.json(); // { token }
+  return fallbackMessage;
 }
 
-export async function signUp(data: SignUpRequest) {
+export async function signIn(request: SignInRequest) {
+  try {
+    const response = await apiClient.post("/auth/signin", request);
 
-  console.log(data);
+    const data = response.data;
 
-  const response = await fetch(`${API_URL}/signup`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+    localStorage.setItem("token", data.token);
 
-  if (!response.ok) {
-    throw new Error("Error al registrarse");
+    return data;
+
+  } catch (error: unknown) {
+    throw new Error(getApiErrorMessage(error, "Credenciales inválidas"));
   }
+}
 
-  return response.json(); // { token }
+export async function signUp(request: SignUpRequest) {
+
+  console.log(request);
+
+  try {
+    const response = await apiClient.post("/auth/signup", request);
+
+    const data = response.data;
+
+    localStorage.setItem("token", data.token);
+
+    return data;
+
+  } catch (error: unknown) {
+    throw new Error(getApiErrorMessage(error, "Error al registrarse"));
+  }
+}
+
+export function logoutUser() {
+  localStorage.removeItem("token");
+}
+
+export function getToken() {
+  return localStorage.getItem("token");
+}
+
+export function isAuthenticated() {
+  return !!getToken();
 }

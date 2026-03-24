@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../services/authService";
+import ButtonSubmit from "../components/ButtonSubmit";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -42,8 +43,6 @@ const SignUp = () => {
       setError("No se pudo crear la cuenta");
     }
 
-    // Simulación de login exitoso
-    navigate("/home");
   };
 
   return (
@@ -52,7 +51,7 @@ const SignUp = () => {
       style={{ backgroundImage: "url('/bandaTocando.png')" }}
     >
       <div className="absolute inset-0 bg-black/70"></div>
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8 relative z-10 justify-center">
+      <div className="w-full max-w-md bg-[#1A192A] rounded-2xl shadow-lg p-8 relative z-10 justify-center">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Registrarse
         </h2>
@@ -116,18 +115,14 @@ const SignUp = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-black font-semibold py-2 rounded-lg transition"
-          >
-            Registrar
-          </button>
+          <ButtonSubmit text="Crear"/>
+          
         </form>
 
         <p className="text-gray-400 text-sm text-center mt-6">
           ¿Ya tienes cuenta?{" "}
           <span
-            className="text-green-400 cursor-pointer hover:underline"
+            className="text-[#58BDDE] cursor-pointer hover:underline"
             onClick={() => navigate("/singin")}
           >
             Iniciar Sesión
