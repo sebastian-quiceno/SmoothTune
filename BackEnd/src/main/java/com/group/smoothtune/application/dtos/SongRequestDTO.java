@@ -4,7 +4,6 @@ public class SongRequestDTO {
 
     private String title;
     private String artist;
-    private String album;
     private Long uploaderId;
     private Long genreId;
 
@@ -19,10 +18,6 @@ public class SongRequestDTO {
 
     public String getArtist() {
         return artist;
-    }
-
-    public String getAlbum() {
-        return album;
     }
 
     public Long getGenreId() {

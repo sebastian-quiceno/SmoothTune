@@ -49,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             //Este condicional va a mirar si el usuario del token coninside con el de la DB
-            if (jwtServiceImpl.isTokenValid(token)) {
+            if (jwtServiceImpl.isTokenValid(token, userDetails)) {
 
                 //Esta aplicacion al no tener credenciales, se le va a pasar un null
                 UsernamePasswordAuthenticationToken auth =

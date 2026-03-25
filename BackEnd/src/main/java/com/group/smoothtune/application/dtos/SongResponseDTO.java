@@ -5,7 +5,7 @@ public record SongResponseDTO(
    String artist,
    Long uploaderId,
    Long genreId,
-   String url,
-   Long duration
+   String getFilePath,
+   Float duration
 
 ) {}

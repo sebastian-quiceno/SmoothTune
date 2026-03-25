@@ -1,6 +1,7 @@
 package com.group.smoothtune.application.dtos;
 
 public class PlaylistUserSongRequestDTO {
+    private Integer position;
     private Long playlistId;
     private Long userSongId;
 
@@ -10,5 +11,9 @@ public class PlaylistUserSongRequestDTO {
 
     public Long getUserSongId() {
         return userSongId;
+    }
+
+    public Integer getPosition() {
+        return position;
     }
 }

@@ -36,7 +36,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "uploader")
     private List<SongEntity> uploadedSongs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<PlaylistEntity> playlists = new ArrayList<>();
 
     @Column(nullable = false)
