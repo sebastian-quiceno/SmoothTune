@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-//
+//    Se desabilito mientras se corrige
+
 //    private final SignUpService signUpService;
 //    private final SignInService signInService;
 //
