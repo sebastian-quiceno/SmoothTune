@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../services/authService";
+import ButtonSubmit from "../components/ButtonSubmit";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -26,11 +29,20 @@ const SignUp = () => {
 
     setPasswordError(false); // si todo está bien
 
-    // 🔐 Aquí luego llamas a tu backend (Spring Boot)
-    console.log({ email, password });
+    // llamada a tu backend (Spring Boot)
+    try {
 
-    // Simulación de login exitoso
-    navigate("/home");
+      const response = await signUp({ email, username, password });
+
+      console.log(response);
+
+      localStorage.setItem("token", response.token);
+
+      navigate("/home");
+    } catch {
+      setError("No se pudo crear la cuenta");
+    }
+
   };
 
   return (
@@ -39,7 +51,7 @@ const SignUp = () => {
       style={{ backgroundImage: "url('/bandaTocando.png')" }}
     >
       <div className="absolute inset-0 bg-black/70"></div>
-      <div className="w-full max-w-md bg-gray-800 rounded-2xl shadow-lg p-8 relative z-10 justify-center">
+      <div className="w-full max-w-md bg-[#1A192A] rounded-2xl shadow-lg p-8 relative z-10 justify-center">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Registrarse
         </h2>
@@ -57,6 +69,19 @@ const SignUp = () => {
               placeholder="correo@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-300 mb-1">
+              Nombre de usuario
+            </label>
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+              placeholder="ingrese su nombre de usuario"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
             />
           </div>
 
@@ -80,7 +105,7 @@ const SignUp = () => {
             <input
               type="password"
               className={`w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 
-								${ passwordError ? "border border-red-500 focus:ring-red-500": "focus:ring-green-500" }`}
+								${passwordError ? "border border-red-500 focus:ring-red-500" : "focus:ring-green-500"}`}
               placeholder="********"
               value={password2}
               onChange={(e) => {
@@ -90,18 +115,14 @@ const SignUp = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-black font-semibold py-2 rounded-lg transition"
-          >
-            Registrar
-          </button>
+          <ButtonSubmit text="Crear"/>
+          
         </form>
 
         <p className="text-gray-400 text-sm text-center mt-6">
           ¿Ya tienes cuenta?{" "}
           <span
-            className="text-green-400 cursor-pointer hover:underline"
+            className="text-[#58BDDE] cursor-pointer hover:underline"
             onClick={() => navigate("/singin")}
           >
             Iniciar Sesión

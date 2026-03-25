@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SingInPage from './pages/SingInPage.tsx'
 import SingUpPage from './pages/SingUpPage.tsx'
+import Home from './pages/Home.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/singup",
     element: <SingUpPage />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
 ]);
 
