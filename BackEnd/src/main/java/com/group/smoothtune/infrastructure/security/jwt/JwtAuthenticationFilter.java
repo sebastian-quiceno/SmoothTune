@@ -1,5 +1,6 @@
 package com.group.smoothtune.infrastructure.security.jwt;
 
+import com.group.smoothtune.infrastructure.security.auth.CustomUserDetailsService;
 import com.group.smoothtune.infrastructure.security.auth.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,11 +18,9 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtServiceImpl jwtServiceImpl;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
 
-    public JwtAuthenticationFilter(
-            JwtServiceImpl jwtServiceImpl,
-            UserDetailsServiceImpl userDetailsService) {
+    public JwtAuthenticationFilter(JwtServiceImpl jwtServiceImpl, CustomUserDetailsService userDetailsService) {
         this.jwtServiceImpl = jwtServiceImpl;
         this.userDetailsService = userDetailsService;
     }
@@ -35,23 +34,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        //Este condicional va a entrar si no hay header o no empieza con Bearer, NO VA A BLOQUEAR EL REQUEST, solo lo va a dejar pasar
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
         String token = authHeader.substring(7);
-        String username = jwtServiceImpl.extractUsername(token);
+        String username = null;
+
+        try {
+            username = jwtServiceImpl.extractUsername(token);
+        } catch (Exception e) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            //Este condicional va a mirar si el usuario del token coninside con el de la DB
             if (jwtServiceImpl.isTokenValid(token, userDetails)) {
 
-                //Esta aplicacion al no tener credenciales, se le va a pasar un null
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
@@ -69,7 +72,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        return path.startsWith("/auth/");
+
+        return path.equals("/api/auth/signin") ||
+                path.equals("/api/auth/signup");
     }
 
 }
