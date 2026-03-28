@@ -85,9 +85,7 @@
 ---
 
 ### 3. Almacenamiento
--	RNF-06: Los archivos deben almacenarse en: 
--	Sistema local o 
--	Servicio externo (ej: S3, recomendado para escalabilidad) 
+-	RNF-06: Los archivos deben almacenarse en File System
 
 ---
 
