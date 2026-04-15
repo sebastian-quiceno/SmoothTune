@@ -19,6 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     public UserRepositoryImpl(UserJpaRepository userJpaRepository) {
         this.userJpaRepository = userJpaRepository;
+        System.out.println(" UserRepositoryImpl inicializado ");
     }
 
     @Override
@@ -36,6 +37,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String email) {
+
+        System.out.println("Buscando usuario con email: "+email);
+
         return userJpaRepository.findByEmail(email)
                 .map(UserPersistenceMapper::toDomain);
     }

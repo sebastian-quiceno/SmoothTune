@@ -55,13 +55,13 @@ public class SignUpUseCase {
                 dto.getUsername()
         );
 
-        AuthResult authResult = authenticatePort.authenticate(
+        authenticatePort.authenticate(
                 newUser.getEmail(),
                 dto.getPassword()
         );
 
         // 2. Generar token
-        String token = tokenPort.generateToken(authResult);
+        String token = tokenPort.generateToken(dto.getEmail());
 
         return new AuthResponseDTO(token);
     }

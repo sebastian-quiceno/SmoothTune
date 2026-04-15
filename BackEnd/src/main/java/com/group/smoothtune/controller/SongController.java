@@ -1,10 +1,7 @@
-package com.group.smoothtune.controllers;
+package com.group.smoothtune.controller;
 
-import com.group.smoothtune.infrastructure.persistence.entity.SongEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/songs")

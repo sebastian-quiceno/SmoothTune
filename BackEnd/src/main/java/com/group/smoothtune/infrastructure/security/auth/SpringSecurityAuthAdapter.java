@@ -17,18 +17,9 @@ public class SpringSecurityAuthAdapter implements AuthenticatePort {
     }
 
     @Override
-    public AuthResult authenticate(String email, String password) {
-
-        Authentication authentication =
-                new UsernamePasswordAuthenticationToken(email, password);
-
-        Authentication auth = authenticationManager.authenticate(authentication);
-
-        CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
-
-        return new AuthResult(
-                user.getUserId(),
-                user.getUsername()
+    public void authenticate(String email, String password) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password)
         );
     }
 }

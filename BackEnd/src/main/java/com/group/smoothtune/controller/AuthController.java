@@ -1,13 +1,13 @@
-package com.group.smoothtune.controllers;
+package com.group.smoothtune.controller;
 
 import com.group.smoothtune.application.dtos.AuthResponseDTO;
 import com.group.smoothtune.application.dtos.SignInRequestDTO;
 import com.group.smoothtune.application.dtos.SignUpRequestDTO;
 import com.group.smoothtune.application.usecase.auth.SignInUseCase;
 import com.group.smoothtune.application.usecase.auth.SignUpUseCase;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import com.group.smoothtune.infrastructure.security.jwt.JwtServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,16 +22,19 @@ public class AuthController {
         this.signUpUseCase = signUpUseCase;
     }
 
-    @PostMapping("/signin")
+    @PostMapping({"/signin", "/signIn"})
     public ResponseEntity<AuthResponseDTO> signIn(@RequestBody SignInRequestDTO request) {
 
-        System.out.println("ENTRÓ AL SIGNIN");
+        System.out.println("Email recibido: " + request.email());
+
+        System.out.println("Email recibido: " + request.password());
+
         AuthResponseDTO response = signInUseCase.execute(request);
 
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/signup")
+    @PostMapping({"/signup", "/signUp"})
     public ResponseEntity<AuthResponseDTO> signUp(@RequestBody SignUpRequestDTO request) {
 
         AuthResponseDTO response = signUpUseCase.execute(request);

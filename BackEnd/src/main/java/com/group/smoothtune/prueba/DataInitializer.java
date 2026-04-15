@@ -17,7 +17,7 @@ public class DataInitializer {
             if (userRepo.count() == 0) { // solo si no hay usuarios
                 UserEntity user = UserEntity.builder()
                         .email("prueba@test.com")
-                        .username("Sebas")
+                        .username("Prueba")
                         .password(encoder.encode("prueba123")) // contraseña clara -> hash
                         .build();
 

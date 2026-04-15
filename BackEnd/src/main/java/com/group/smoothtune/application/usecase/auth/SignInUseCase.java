@@ -19,10 +19,10 @@ public class SignInUseCase {
     public AuthResponseDTO execute(SignInRequestDTO dto) {
 
         // 1. Autenticación
-        AuthResult authResult = authenticatePort.authenticate(dto.email(), dto.password());
+        authenticatePort.authenticate(dto.email(), dto.password());
 
         // 2. Generar token
-        String token = tokenPort.generateToken(authResult);
+        String token = tokenPort.generateToken(dto.email());
 
         // 3. Retornar DTO
         return new AuthResponseDTO(token);
