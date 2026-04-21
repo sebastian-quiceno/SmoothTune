@@ -6,21 +6,18 @@ public class Song {
 
     private Long id;
     private String title;
-    private String filePath;
-    private String contentType;
+    private String imagePath;
+    private String audioPath;
     private Float duration;
-    private Long size;
+    private Integer size;
     private String artist;
 
     private Long uploaderId;
     private Long genreId;
-
     private List<Long> userSongs;
 
-    public Song(String title, String filePath, String contentType, Float duration, Long size, String artist, Long uploaderId, Long genreId) {
+    public Song(String title, Float duration, Integer size, String artist, Long uploaderId, Long genreId) {
         this.title = title;
-        this.filePath = filePath;
-        this.contentType = contentType;
         this.duration = duration;
         this.size = size;
         this.artist = artist;
@@ -28,11 +25,11 @@ public class Song {
         this.genreId = genreId;
     }
 
-    public Song(Long id, String title, String filePath, String contentType, Float duration, Long size, String artist, Long uploaderId, Long genreId, List<Long> userSongs) {
+    public Song(Long id, String title, String imagePath, String audioPath, Float duration, Integer size, String artist, Long uploaderId, Long genreId, List<Long> userSongs) {
         this.id = id;
         this.title = title;
-        this.filePath = filePath;
-        this.contentType = contentType;
+        this.imagePath = imagePath;
+        this.audioPath = audioPath;
         this.duration = duration;
         this.size = size;
         this.artist = artist;
@@ -49,20 +46,19 @@ public class Song {
         return title;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getImagePath() {
+        return imagePath;
     }
 
-
-    public String getContentType() {
-        return contentType;
+    public String getAudioPath() {
+        return audioPath;
     }
 
     public Float getDuration() {
         return duration;
     }
 
-    public Long getSize() {
+    public Integer getSize() {
         return size;
     }
 
@@ -90,6 +86,18 @@ public class Song {
         this.artist = artist;
     }
 
+    public void setDuration(Float duration) {
+        this.duration = duration;
+    }
+
+    public void setUserSongs(List<Long> userSongs) {
+        this.userSongs = userSongs;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public void setUploaderId(Long uploaderId) {
         this.uploaderId = uploaderId;
     }
@@ -98,15 +106,11 @@ public class Song {
         this.genreId = genreId;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setAudioPath(String audioPath) {
+        this.audioPath = audioPath;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public void setSize(Long size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 }

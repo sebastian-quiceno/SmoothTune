@@ -2,7 +2,6 @@ package com.group.smoothtune.application.usecase.auth;
 
 import com.group.smoothtune.application.dtos.AuthResponseDTO;
 import com.group.smoothtune.application.dtos.SignInRequestDTO;
-import com.group.smoothtune.domain.model.AuthResult;
 import com.group.smoothtune.domain.port.AuthenticatePort;
 import com.group.smoothtune.domain.port.TokenPort;
 

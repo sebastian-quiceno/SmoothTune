@@ -1,9 +1,8 @@
-package com.group.smoothtune.infrastructure.security.config;
+package com.group.smoothtune.infrastructure.config;
 
 import com.group.smoothtune.infrastructure.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,14 +32,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console", "/api/auth/**").permitAll()
+                        .requestMatchers("/h2-console", "/api/auth/**", "/file/**").permitAll()
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
 
     //Con el nuevo Spring security, NO hace falta crear un Custom AuthenticationManager
     //Se le esta pidiendo a Spring Security que use SU PROPIO authenticationManager, el cual se encarga de unir lo nuestro

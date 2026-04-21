@@ -1,6 +1,5 @@
 package com.group.smoothtune.infrastructure.storage;
 
-import com.group.smoothtune.domain.port.FileStoragePort;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +10,13 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
+//CLASE PARA ALMACENAMIENTO LOCAL, no se esta usando
 @Service
-public class FileStorageServiceImpl implements FileStoragePort {
+public class FileStorageServiceImpl{
 
     @Value("${storage.location}")
     private String storageLocation;
 
-    @Override
     public String saveFile(InputStream file, String filename, String contentType) {
         try {
             String extension = getExtension(filename);
@@ -40,7 +39,6 @@ public class FileStorageServiceImpl implements FileStoragePort {
         }
     }
 
-    @Override
     public InputStream getFile(String path) {
         try {
             Path filePath = Paths.get(storageLocation).resolve(path).normalize();
@@ -50,7 +48,6 @@ public class FileStorageServiceImpl implements FileStoragePort {
         }
     }
 
-    @Override
     public void deleteFile(String path) {
         try {
             Path filePath = Paths.get(storageLocation).resolve(path).normalize();

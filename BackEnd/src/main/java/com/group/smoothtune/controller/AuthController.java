@@ -24,21 +24,13 @@ public class AuthController {
 
     @PostMapping({"/signin", "/signIn"})
     public ResponseEntity<AuthResponseDTO> signIn(@RequestBody SignInRequestDTO request) {
-
-        System.out.println("Email recibido: " + request.email());
-
-        System.out.println("Email recibido: " + request.password());
-
         AuthResponseDTO response = signInUseCase.execute(request);
-
         return ResponseEntity.ok(response);
     }
 
     @PostMapping({"/signup", "/signUp"})
     public ResponseEntity<AuthResponseDTO> signUp(@RequestBody SignUpRequestDTO request) {
-
         AuthResponseDTO response = signUpUseCase.execute(request);
-
         return ResponseEntity.ok(response);
     }
 }

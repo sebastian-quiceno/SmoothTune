@@ -1,4 +1,4 @@
-package com.group.smoothtune.infrastructure.security.config;
+package com.group.smoothtune.infrastructure.security.auth;
 
 import com.group.smoothtune.domain.port.PasswordEncoderPort;
 import org.springframework.security.crypto.password.PasswordEncoder;

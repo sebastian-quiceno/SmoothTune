@@ -22,7 +22,7 @@ public class DataInitializer {
                         .build();
 
                 userRepo.save(user);
-                System.out.println("Usuario inicial creado");
+                System.out.println("Usuario inicial creado, su ID es: "+user.getId());
             }
         };
     }

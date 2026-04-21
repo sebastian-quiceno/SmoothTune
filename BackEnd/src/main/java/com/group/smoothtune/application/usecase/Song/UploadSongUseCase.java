@@ -2,50 +2,51 @@ package com.group.smoothtune.application.usecase.Song;
 
 import com.group.smoothtune.domain.exception.GenreNotFoundException;
 import com.group.smoothtune.domain.exception.UserNotFoundException;
+import com.group.smoothtune.domain.model.FileResource;
 import com.group.smoothtune.domain.model.Song;
+import com.group.smoothtune.domain.model.UploadResult;
 import com.group.smoothtune.domain.port.*;
 
-import java.io.InputStream;
+import java.io.IOException;
 
 public class UploadSongUseCase {
+
     private final FileStoragePort fileStoragePort;
     private final SongRepository songRepository;
     private final UserRepository userRepository;
     private final GenreRepository genreRepository;
-    private final AudioMetadataPort audioMetadataPort;
 
-    public UploadSongUseCase(FileStoragePort fileStoragePort, SongRepository songRepository, UserRepository userRepository, GenreRepository genreRepository, AudioMetadataPort audioMetadataPort) {
+    public UploadSongUseCase(FileStoragePort fileStoragePort,
+                             SongRepository songRepository,
+                             UserRepository userRepository,
+                             GenreRepository genreRepository) {
         this.fileStoragePort = fileStoragePort;
         this.songRepository = songRepository;
         this.userRepository = userRepository;
         this.genreRepository = genreRepository;
-        this.audioMetadataPort = audioMetadataPort;
     }
 
-    public Song execute(InputStream inputStream,
-                        String filename,
-                        String contentType,
-                        Long size,
+    public Song execute(FileResource audioFile,
+                        FileResource imageFile,
                         String title,
                         String artist,
                         Long userId,
-                        Long genreId) {
+                        Long genreId) throws IOException {
 
-        userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("No se encontro el usuario con el ID: "+userId));
-        genreRepository.findById(genreId).orElseThrow(()-> new GenreNotFoundException("No se encontro el genero con el ID: "+genreId));
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
 
-        Float duration = audioMetadataPort.getDuration(inputStream);
+        genreRepository.findById(genreId)
+                .orElseThrow(() -> new GenreNotFoundException("Género no encontrado"));
 
-        String filePath = fileStoragePort.saveFile(
-                inputStream,
-                filename,
-                contentType
-        );
+        UploadResult audioResult = fileStoragePort.uploadSong(audioFile);
+        String imagePath = fileStoragePort.uploadImage(imageFile);
+
+        int size = audioResult.getSize();
+        float duration = audioResult.getDuration();
 
         Song song = new Song(
                 title,
-                filePath,
-                contentType,
                 duration,
                 size,
                 artist,
@@ -53,7 +54,9 @@ public class UploadSongUseCase {
                 genreId
         );
 
+        song.setAudioPath(audioResult.getKey());
+        song.setImagePath(imagePath);
+
         return songRepository.save(song);
     }
-
 }

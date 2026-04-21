@@ -13,9 +13,7 @@ public class CreateUserUseCase {
     }
 
     public User execute(String email, String encodedPassword, String username) {
-
         User user = new User(email, encodedPassword, username);
-
         return userRepository.save(user);
     }
 }

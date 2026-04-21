@@ -2,13 +2,18 @@ package com.group.smoothtune.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "playlists")
 public class PlaylistEntity {
 
@@ -23,8 +28,8 @@ public class PlaylistEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity owner;
 
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PlaylistUserSongEntity> playlistSongs = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "playlist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PlaylistUserSongEntity> playlistSongs = new HashSet<>();
 
     /* Auditoría (opcional pero muy útil) */
     private LocalDateTime createdAt;

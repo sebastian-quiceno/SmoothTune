@@ -1,17 +1,19 @@
 package com.group.smoothtune.infrastructure.persistence.mapper;
 
 import com.group.smoothtune.domain.model.Song;
+import com.group.smoothtune.infrastructure.persistence.entity.GenreEntity;
 import com.group.smoothtune.infrastructure.persistence.entity.SongEntity;
+import com.group.smoothtune.infrastructure.persistence.entity.UserEntity;
 import com.group.smoothtune.infrastructure.persistence.entity.UserSongEntity;
 
 public class SongPersistenceMapper {
 
     public static Song toDomain(SongEntity entity) {
-        Song song = new Song(
+        return new Song(
                 entity.getId(),
                 entity.getTitle(),
-                entity.getFilePath(),
-                entity.getContentType(),
+                entity.getImagePath(),
+                entity.getAudioPath(),
                 entity.getDuration(),
                 entity.getSize(),
                 entity.getArtist(),
@@ -19,8 +21,6 @@ public class SongPersistenceMapper {
                 entity.getGenre().getId(),
                 entity.getUserSongs().stream().map(UserSongEntity::getId).toList()
         );
-
-        return song;
     }
 
     public static SongEntity toEntity(Song song) {
@@ -28,12 +28,22 @@ public class SongPersistenceMapper {
 
         entity.setId(song.getId());
         entity.setTitle(song.getTitle());
-        entity.setFilePath(song.getFilePath());
-        entity.setContentType(song.getContentType());
+        entity.setImagePath(song.getImagePath());
+        entity.setAudioPath(song.getAudioPath());
         entity.setDuration(song.getDuration());
         entity.setSize(song.getSize());
         entity.setArtist(song.getArtist());
 
+        UserEntity user = new UserEntity();
+        user.setId(song.getUploaderId());
+
+        GenreEntity genre = new GenreEntity();
+        genre.setId(song.getGenreId());
+
+        entity.setUploader(user);
+        entity.setGenre(genre);
+
         return entity;
     }
+
 }

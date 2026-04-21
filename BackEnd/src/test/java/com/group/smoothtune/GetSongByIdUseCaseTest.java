@@ -37,7 +37,7 @@ class GetSongByIdUseCaseTest {
         Long songId = 1L;
 
         Song song = mock(Song.class);
-        when(song.getFilePath()).thenReturn("path/file.mp3");
+        when(song.getAudioPath()).thenReturn("path/file.mp3");
 
         when(songRepository.findById(songId))
                 .thenReturn(Optional.of(song));

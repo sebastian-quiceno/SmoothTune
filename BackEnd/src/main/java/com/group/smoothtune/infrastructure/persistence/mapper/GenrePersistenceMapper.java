@@ -5,13 +5,11 @@ import com.group.smoothtune.infrastructure.persistence.entity.GenreEntity;
 
 public class GenrePersistenceMapper {
     public static Genre toDomain(GenreEntity entity) {
-        Genre genre = new Genre(
+        return new Genre(
                 entity.getId(),
                 entity.getName(),
                 entity.getDescription()
         );
-
-        return genre;
     }
 
     public static GenreEntity toEntity(Genre genre) {

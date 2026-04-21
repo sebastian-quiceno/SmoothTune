@@ -1,19 +1,24 @@
-package com.group.smoothtune.infrastructure.usecase;
+package com.group.smoothtune.infrastructure.config;
 
+import com.group.smoothtune.application.usecase.Genre.CreateGenreUseCase;
+import com.group.smoothtune.application.usecase.Song.UploadSongUseCase;
 import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByUsernameUseCase;
 import com.group.smoothtune.application.usecase.auth.SignInUseCase;
 import com.group.smoothtune.application.usecase.auth.SignUpUseCase;
-import com.group.smoothtune.domain.port.AuthenticatePort;
-import com.group.smoothtune.domain.port.PasswordEncoderPort;
-import com.group.smoothtune.domain.port.TokenPort;
-import com.group.smoothtune.domain.port.UserRepository;
+import com.group.smoothtune.domain.port.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class UseCaseConfig {
+
+    //========= USER =========
+    @Bean
+    public CreateUserUseCase createUserUseCase(UserRepository userRepository) {
+        return new CreateUserUseCase(userRepository);
+    }
 
     @Bean
     public FindUserByEmailUseCase findUserByEmailUseCase(UserRepository userRepository) {
@@ -25,11 +30,7 @@ public class UseCaseConfig {
         return new FindUserByUsernameUseCase(userRepository);
     }
 
-    @Bean
-    public CreateUserUseCase createUserUseCase(UserRepository userRepository) {
-        return new CreateUserUseCase(userRepository);
-    }
-
+    //========= LOGIN =========
     @Bean
     public SignInUseCase signInUseCase(
             AuthenticatePort authenticatePort,
@@ -56,5 +57,30 @@ public class UseCaseConfig {
                 authenticatePort
         );
     }
+
+    //========= SONG =========
+    @Bean
+    public UploadSongUseCase uploadSongUseCase(
+            FileStoragePort fileStoragePort,
+            SongRepository songRepository,
+            UserRepository userRepository,
+            GenreRepository genreRepository
+    ) {
+        return new UploadSongUseCase(
+                fileStoragePort,
+                songRepository,
+                userRepository,
+                genreRepository
+        );
+    }
+
+    //========= Genre =========
+    @Bean
+    public CreateGenreUseCase createGenreUseCase(
+            GenreRepository genreRepository
+    ){
+        return new CreateGenreUseCase(genreRepository);
+    }
+
 
 }

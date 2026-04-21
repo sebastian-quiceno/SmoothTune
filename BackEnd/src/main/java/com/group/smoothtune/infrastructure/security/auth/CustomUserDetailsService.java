@@ -24,6 +24,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found by email"));
 
         // Aquí se mapea el User a CustomUserDetails
-        return new UserEntity(user.getId(), user.getEmail(), user.getPassword(), user.getUsername());
+        return new CustomUserDetails(user.getId(), user.getEmail(), user.getPassword());
     }
 }

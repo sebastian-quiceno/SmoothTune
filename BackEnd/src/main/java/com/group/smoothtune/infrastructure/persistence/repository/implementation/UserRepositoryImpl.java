@@ -7,6 +7,7 @@ import com.group.smoothtune.infrastructure.persistence.entity.UserEntity;
 import com.group.smoothtune.infrastructure.persistence.entity.UserSongEntity;
 import com.group.smoothtune.infrastructure.persistence.mapper.UserPersistenceMapper;
 import com.group.smoothtune.infrastructure.persistence.repository.UserJpaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     public UserRepositoryImpl(UserJpaRepository userJpaRepository) {
         this.userJpaRepository = userJpaRepository;
-        System.out.println(" UserRepositoryImpl inicializado ");
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         UserEntity entity = UserPersistenceMapper.toEntity(user);
         UserEntity saved = userJpaRepository.save(entity);
@@ -30,27 +31,28 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public Optional<User> findById(Long id) {
-        return userJpaRepository.findById(id)
+        return userJpaRepository.findFullById(id)
                 .map(UserPersistenceMapper::toDomain);
     }
 
     @Override
+    @Transactional
     public Optional<User> findByEmail(String email) {
-
-        System.out.println("Buscando usuario con email: "+email);
-
         return userJpaRepository.findByEmail(email)
                 .map(UserPersistenceMapper::toDomain);
     }
 
     @Override
+    @Transactional
     public Optional<User> findByUsername(String username) {
         return userJpaRepository.findByUsername(username)
                 .map(UserPersistenceMapper::toDomain);
     }
 
     @Override
+    @Transactional
     public List<User> findAll() {
         return userJpaRepository.findAll()
                 .stream()
@@ -59,6 +61,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         userJpaRepository.deleteById(id);
     }

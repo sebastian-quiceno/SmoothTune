@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // Ignora login y register
-        if (path.startsWith("/api/auth")) {
+        if (path.startsWith("/api/auth") || path.startsWith("/file") || path.startsWith("/h2-console")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -43,14 +43,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = "";
         String username = "";
 
+        System.out.println("Authentificando");
+
         //Si no hay token sale
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
+        System.out.println("Sacando token y usuario...");
+
         token = authHeader.substring(7);
         username = jwtServiceImpl.extractUsername(token);
+
+        System.out.println("El usuario es: "+username);
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);

@@ -16,11 +16,8 @@ public class GetSongByIdUseCase {
         this.songRepository = songRepository;
     }
 
-    public InputStream execute(Long songId) {
-
-        Song song = songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
-
-        return fileStoragePort.getFile(song.getFilePath());
+    public Song execute(Long songId) {
+        return songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
 
     }
 

@@ -23,7 +23,7 @@ public class DeleteSongUseCase {
             throw new UserDontHavePermission("No tienes permisos para eliminar esta canción");
         }
 
-        fileStoragePort.deleteFile(song.getFilePath());
+        fileStoragePort.deleteFile(song.getAudioPath());
 
 
         songRepository.deleteById(songId);

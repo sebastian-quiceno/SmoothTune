@@ -38,7 +38,7 @@ class DeleteSongUseCaseTest {
 
         Song song = mock(Song.class);
         when(song.getUploaderId()).thenReturn(userId);
-        when(song.getFilePath()).thenReturn("path/file.mp3");
+        when(song.getAudioPath()).thenReturn("path/file.mp3");
 
         when(songRepository.findById(songId))
                 .thenReturn(Optional.of(song));

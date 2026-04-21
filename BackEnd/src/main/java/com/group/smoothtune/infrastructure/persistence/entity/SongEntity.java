@@ -2,20 +2,28 @@ package com.group.smoothtune.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "songs")
-@Data
+@Getter
+@Setter
 public class SongEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
+    private String imagePath;
+    private String audioPath;
+    private Float duration;
+    private Integer size;
     private String artist;
 
     @ManyToOne
@@ -26,14 +34,7 @@ public class SongEntity {
     @JoinColumn(name = "genre_id")
     private GenreEntity genre;
 
-    private String filePath;
-    private String url;
-    private String contentType;
-
-    private Float duration;
-    private Long size;
-
-    @OneToMany(mappedBy = "song")
-    private List<UserSongEntity> userSongs = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
+    private Set<UserSongEntity> userSongs = new HashSet<>();
 
 }

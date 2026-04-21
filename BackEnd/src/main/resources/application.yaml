@@ -2,6 +2,11 @@ spring:
   profiles:
     active: dev
 
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 25MB
+
   application:
     name: smoothtune
 
@@ -17,3 +22,15 @@ logging:
 
 storage:
   location: uploads/songs
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    region:
+      static: us-east-1
+
+aws:
+  bucket:
+    name: smooth-tune-2006
