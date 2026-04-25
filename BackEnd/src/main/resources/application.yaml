@@ -20,6 +20,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
 
+
 storage:
   location: uploads/songs
 

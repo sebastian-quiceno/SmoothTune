@@ -3,7 +3,10 @@ package com.group.smoothtune.domain.exception;
 public sealed class DomainException extends RuntimeException
         permits UserNotFoundException,
         UsernameAlreadyExistException,
+        UserDontHavePermission,
+        PlaylistUserSongNotFound,
         SongAlreadySaveException,
+        SongAlreadySave,
         SongNotFoundException,
         ErrorWhileGettingDurationException,
         GenreNotFoundException,
