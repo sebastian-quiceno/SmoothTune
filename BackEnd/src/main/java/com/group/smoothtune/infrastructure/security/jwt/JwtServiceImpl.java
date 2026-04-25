@@ -5,6 +5,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,25 +17,18 @@ import java.util.Date;
 @Service
 public class JwtServiceImpl implements TokenPort {
 
-    private static final String SECRET_KEY = "UD32VQK58D7ogms7JZQAC2dUNIV3Zt8Jg3FHeO4+EZE="; // IMPORTANTE
-    private final SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
-    private static final int expirationTime = 1000 * 60 * 60 * 24; // 24 horas
+    @Value("${jwt.key.secret}")
+    private String SECRET_KEY;
 
-//    @Override
-//    public String generateToken(AuthRequest authRequest) {
-//
-//        Map<String, Object> claims = new HashMap<>();
-//        claims.put("userId", authResult.getUserId());
-//        claims.put("email", authResult.getEmail());
-//
-//        return Jwts.builder()
-//                .setClaims(claims)
-//                .setSubject(authResult.getEmail())
-//                .setIssuedAt(new Date(System.currentTimeMillis()))
-//                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
-//                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
-//                .compact();
-//    }
+    @Value("${jwt.key.ttl}")
+    private long expirationTime;
+
+    private SecretKey key;
+
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
 
     @Override
     public String generateToken(String email){

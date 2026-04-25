@@ -122,7 +122,7 @@ class AddPlayListUserSongUseCaseTest {
                 .thenReturn(true);
 
         // Act & Assert
-        assertThrows(SongAlreadySave.class, () -> {
+        assertThrows(SongAlreadySaveException.class, () -> {
             useCase.execute(playlistId, userSongId);
         });
 

@@ -1,6 +1,7 @@
 package com.group.smoothtune.infrastructure.config;
 
 import com.group.smoothtune.application.usecase.Genre.CreateGenreUseCase;
+import com.group.smoothtune.application.usecase.Genre.GetGenresUseCase;
 import com.group.smoothtune.application.usecase.Song.UploadSongUseCase;
 import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
@@ -80,6 +81,11 @@ public class UseCaseConfig {
             GenreRepository genreRepository
     ){
         return new CreateGenreUseCase(genreRepository);
+    }
+
+    @Bean
+    public GetGenresUseCase getGenresUseCase(GenreRepository genreRepository){
+        return new GetGenresUseCase(genreRepository);
     }
 
 

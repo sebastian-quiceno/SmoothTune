@@ -23,6 +23,8 @@ import java.util.UUID;
 @Service
 public class S3Service implements FileStoragePort {
 
+    private final static int urlDuration = 10;
+
     private final S3Client s3Client;
     private final AudioMetadataPort audioMetadataPort;
     private final S3Presigner s3Presigner;
@@ -97,7 +99,7 @@ public class S3Service implements FileStoragePort {
                 .build();
 
         GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(10))
+                .signatureDuration(Duration.ofMinutes(urlDuration))
                 .getObjectRequest(getObjectRequest)
                 .build();
 

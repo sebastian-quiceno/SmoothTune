@@ -1,7 +1,7 @@
 package com.group.smoothtune;
 
 import com.group.smoothtune.application.usecase.UserSong.AddUserSongUseCase;
-import com.group.smoothtune.domain.exception.SongAlreadySave;
+import com.group.smoothtune.domain.exception.SongAlreadySaveException;
 import com.group.smoothtune.domain.exception.SongNotFoundException;
 import com.group.smoothtune.domain.exception.UserNotFoundException;
 import com.group.smoothtune.domain.model.UserSong;
@@ -114,7 +114,7 @@ class AddUserSongUseCaseTest {
                 .thenReturn(true);
 
         // Act & Assert
-        assertThrows(SongAlreadySave.class, () -> {
+        assertThrows(SongAlreadySaveException.class, () -> {
             useCase.execute(userId, songId);
         });
 

@@ -1,7 +1,7 @@
 package com.group.smoothtune.application.usecase.UserSong;
 
 
-import com.group.smoothtune.domain.exception.SongAlreadySave;
+import com.group.smoothtune.domain.exception.SongAlreadySaveException;
 import com.group.smoothtune.domain.exception.SongNotFoundException;
 import com.group.smoothtune.domain.exception.UserNotFoundException;
 import com.group.smoothtune.domain.model.UserSong;
@@ -30,7 +30,7 @@ public class AddUserSongUseCase {
                 .existsByUserIdAndSongId(userId, songId);
 
         if (alreadyExists) {
-            throw new SongAlreadySave("La cancion ya esta guardada");
+            throw new SongAlreadySaveException("La cancion ya esta guardada");
         }
 
         UserSong userSong = new UserSong(userId, songId);

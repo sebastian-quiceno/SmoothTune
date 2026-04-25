@@ -1,7 +1,7 @@
 package com.group.smoothtune.application.usecase.Song;
 
 import com.group.smoothtune.domain.exception.SongNotFoundException;
-import com.group.smoothtune.domain.exception.UserDontHavePermission;
+import com.group.smoothtune.domain.exception.AccessDeniedException;
 import com.group.smoothtune.domain.model.Song;
 import com.group.smoothtune.domain.port.*;
 
@@ -20,7 +20,7 @@ public class DeleteSongUseCase {
         Song song = songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
 
         if (!song.getUploaderId().equals(userId)) {
-            throw new UserDontHavePermission("No tienes permisos para eliminar esta canción");
+            throw new AccessDeniedException("No tienes permisos para eliminar esta canción");
         }
 
         fileStoragePort.deleteFile(song.getAudioPath());

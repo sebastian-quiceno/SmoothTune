@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SingInPage from './pages/SingInPage.tsx'
 import SingUpPage from './pages/SingUpPage.tsx'
 import Home from './pages/Home.tsx'
+import UserHome from './pages/Music.tsx'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <Home />,
+  },
+  {
+    path: "/userhome",
+    element: <UserHome />,
   },
 ]);
 

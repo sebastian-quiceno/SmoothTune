@@ -2,7 +2,7 @@ package com.group.smoothtune;
 
 import com.group.smoothtune.application.usecase.Playlist.DeletePlaylistByIdUseCase;
 import com.group.smoothtune.domain.exception.PlaylistNotFoundException;
-import com.group.smoothtune.domain.exception.UserDontHavePermission;
+import com.group.smoothtune.domain.exception.AccessDeniedException;
 import com.group.smoothtune.domain.model.Playlist;
 import com.group.smoothtune.domain.port.PlaylistRepository;
 
@@ -75,7 +75,7 @@ class DeletePlaylistByIdUseCaseTest {
                 .thenReturn(Optional.of(playlist));
 
         // Act & Assert
-        assertThrows(UserDontHavePermission.class, () -> {
+        assertThrows(AccessDeniedException.class, () -> {
             useCase.execute(userId, playlistId);
         });
 

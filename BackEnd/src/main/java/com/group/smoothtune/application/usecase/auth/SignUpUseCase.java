@@ -1,14 +1,12 @@
 package com.group.smoothtune.application.usecase.auth;
 
-import com.group.smoothtune.application.dtos.AuthResponseDTO;
-import com.group.smoothtune.application.dtos.SignUpRequestDTO;
-import com.group.smoothtune.application.dtos.UserRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.AuthResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.SignUpRequestDTO;
 import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByUsernameUseCase;
 import com.group.smoothtune.domain.exception.EmailAlreadyExistException;
 import com.group.smoothtune.domain.exception.UsernameAlreadyExistException;
-import com.group.smoothtune.domain.model.AuthResult;
 import com.group.smoothtune.domain.model.User;
 import com.group.smoothtune.domain.port.AuthenticatePort;
 import com.group.smoothtune.domain.port.PasswordEncoderPort;

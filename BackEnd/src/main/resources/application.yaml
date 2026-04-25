@@ -29,8 +29,13 @@ cloud:
       access-key: ${AWS_ACCESS_KEY}
       secret-key: ${AWS_SECRET_KEY}
     region:
-      static: us-east-1
+      static: ${REGION}
 
 aws:
   bucket:
-    name: smooth-tune-2006
+    name: ${BUCKET_NAME}
+
+jwt:
+  key:
+    secret: ${JWT_KEY}
+    ttl: ${EXPIRATION_TIME}

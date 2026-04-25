@@ -1,7 +1,7 @@
 package com.group.smoothtune.prueba;
 
-import com.group.smoothtune.infrastructure.persistence.entity.UserEntity;
-import com.group.smoothtune.infrastructure.persistence.repository.UserJpaRepository;
+import com.group.smoothtune.adapter.out.persistence.entity.UserEntity;
+import com.group.smoothtune.adapter.out.persistence.repository.jpa.UserJpaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

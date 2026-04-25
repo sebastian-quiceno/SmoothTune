@@ -19,13 +19,13 @@ public class DeletePlaylistUserSongUseCase {
     public void execute(Long userId, Long playlistUserSongId) {
 
         PlaylistUserSong item = playlistUserSongRepository.findById(playlistUserSongId)
-                .orElseThrow(() -> new PlaylistUserSongNotFound("No se encontro la cancion en la playlist (playlistUserSong) con el ID: "+playlistUserSongId));
+                .orElseThrow(() -> new PlaylistUserSongNotFoundException("No se encontro la cancion en la playlist (playlistUserSong) con el ID: "+playlistUserSongId));
 
         Playlist playlist = playlistRepository.findById(item.getPlaylistId())
                 .orElseThrow(() -> new PlaylistNotFoundException("No se encontro la playlist con el ID: "+item.getPlaylistId()));
 
         if (!playlist.getOwnerId().equals(userId)) {
-            throw new UserDontHavePermission("No tienes permiso para eliminar la cancion de la playlist");
+            throw new AccessDeniedException("No tienes permiso para eliminar la cancion de la playlist");
         }
 
         playlistUserSongRepository.deleteById(playlistUserSongId);

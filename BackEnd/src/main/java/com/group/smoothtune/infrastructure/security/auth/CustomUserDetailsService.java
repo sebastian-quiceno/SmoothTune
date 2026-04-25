@@ -2,7 +2,6 @@ package com.group.smoothtune.infrastructure.security.auth;
 
 import com.group.smoothtune.domain.model.User;
 import com.group.smoothtune.domain.port.UserRepository;
-import com.group.smoothtune.infrastructure.persistence.entity.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

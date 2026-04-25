@@ -2,7 +2,7 @@ package com.group.smoothtune;
 
 import com.group.smoothtune.application.usecase.Song.DeleteSongUseCase;
 import com.group.smoothtune.domain.exception.SongNotFoundException;
-import com.group.smoothtune.domain.exception.UserDontHavePermission;
+import com.group.smoothtune.domain.exception.AccessDeniedException;
 import com.group.smoothtune.domain.model.Song;
 import com.group.smoothtune.domain.port.FileStoragePort;
 import com.group.smoothtune.domain.port.SongRepository;
@@ -82,7 +82,7 @@ class DeleteSongUseCaseTest {
                 .thenReturn(Optional.of(song));
 
         // Act & Assert
-        assertThrows(UserDontHavePermission.class, () -> {
+        assertThrows(AccessDeniedException.class, () -> {
             useCase.execute(songId, userId);
         });
 

@@ -4,7 +4,6 @@ package com.group.smoothtune.application.usecase.PlaylistUserSong;
 import com.group.smoothtune.domain.exception.*;
 import com.group.smoothtune.domain.model.Playlist;
 import com.group.smoothtune.domain.model.PlaylistUserSong;
-import com.group.smoothtune.domain.model.UserSong;
 import com.group.smoothtune.domain.port.*;
 
 public class AddPlayListUserSongUseCase {
@@ -28,7 +27,7 @@ public class AddPlayListUserSongUseCase {
                 .existsByPlaylistIdAndUserSongId(playlistId, userSongId);
 
         if (alreadyExists) {
-            throw new SongAlreadySave("La cancion ya esta guardada en la playlist");
+            throw new SongAlreadySaveException("La cancion ya esta guardada en la playlist");
         }
 
         PlaylistUserSong newPlaylistUserSong = new PlaylistUserSong(playlist.getPlaylistSongs().toArray().length, playlistId, userSongId);
