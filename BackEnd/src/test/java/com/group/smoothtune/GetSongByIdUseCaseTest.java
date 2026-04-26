@@ -12,8 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,30 +30,23 @@ class GetSongByIdUseCaseTest {
     private GetSongByIdUseCase useCase;
 
     @Test
-    void shouldReturnSongInputStreamSuccessfully() {
+    void shouldReturnSongSuccessfully() {
         // Arrange
         Long songId = 1L;
 
         Song song = mock(Song.class);
-        when(song.getAudioPath()).thenReturn("path/file.mp3");
 
         when(songRepository.findById(songId))
                 .thenReturn(Optional.of(song));
 
-        InputStream expectedStream = new ByteArrayInputStream("audio".getBytes());
-
-        when(fileStoragePort.getFile("path/file.mp3"))
-                .thenReturn(expectedStream);
-
         // Act
-        InputStream result = useCase.execute(songId);
+        Song result = useCase.execute(songId);
 
         // Assert
         assertNotNull(result);
-        assertEquals(expectedStream, result);
+        assertEquals(song, result);
 
         verify(songRepository).findById(songId);
-        verify(fileStoragePort).getFile("path/file.mp3");
     }
 
     @Test
@@ -70,7 +61,5 @@ class GetSongByIdUseCaseTest {
         assertThrows(SongNotFoundException.class, () -> {
             useCase.execute(songId);
         });
-
-        verify(fileStoragePort, never()).getFile(any());
     }
 }

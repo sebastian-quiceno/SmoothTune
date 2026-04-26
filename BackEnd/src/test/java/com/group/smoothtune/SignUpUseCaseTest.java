@@ -8,7 +8,6 @@ import com.group.smoothtune.application.usecase.User.FindUserByUsernameUseCase;
 import com.group.smoothtune.application.usecase.auth.SignUpUseCase;
 import com.group.smoothtune.domain.exception.EmailAlreadyExistException;
 import com.group.smoothtune.domain.exception.UsernameAlreadyExistException;
-import com.group.smoothtune.domain.model.AuthResult;
 import com.group.smoothtune.domain.model.User;
 import com.group.smoothtune.domain.port.AuthenticatePort;
 import com.group.smoothtune.domain.port.PasswordEncoderPort;
@@ -93,13 +92,7 @@ class SignUpUseCaseTest {
         when(createUserUseCase.execute(any(), any(), any()))
                 .thenReturn(user);
 
-        AuthResult authResult = mock(AuthResult.class);
-
-        // FIX del UnfinishedStubbing
-        when(authenticatePort.authenticate(dto.getEmail(), dto.getPassword()))
-                .thenReturn(authResult);
-
-        when(tokenPort.generateToken(authResult))
+        when(tokenPort.generateToken(dto.getEmail()))
                 .thenReturn("token123");
 
         // Act

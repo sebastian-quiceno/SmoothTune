@@ -31,11 +31,5 @@ jobs:
       - name: 🔧 Dar permisos a Maven Wrapper
         run: chmod +x BackEnd/mvnw
 
-      - name: 🔧 Compilar proyecto
-        run: cd BackEnd && ./mvnw clean compile
-
-      - name: 🧪 Ejecutar tests
-        run: cd BackEnd && ./mvnw test
-
-      - name: 📦 Empaquetar proyecto
-        run: cd BackEnd && ./mvnw package -DskipTests
+      - name: 🚀 Construcción y Pruebas (Clean Verify)
+        run: cd BackEnd && ./mvnw clean verify

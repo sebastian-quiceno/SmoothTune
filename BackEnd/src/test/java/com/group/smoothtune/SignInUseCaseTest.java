@@ -3,7 +3,6 @@ package com.group.smoothtune;
 import com.group.smoothtune.application.usecase.auth.SignInUseCase;
 import com.group.smoothtune.adapter.in.rest.dtos.AuthResponseDTO;
 import com.group.smoothtune.adapter.in.rest.dtos.SignInRequestDTO;
-import com.group.smoothtune.domain.model.AuthResult;
 import com.group.smoothtune.domain.port.AuthenticatePort;
 import com.group.smoothtune.domain.port.TokenPort;
 
@@ -37,12 +36,7 @@ class SignInUseCaseTest {
 
         SignInRequestDTO request = new SignInRequestDTO(email, password);
 
-        AuthResult authResult = mock(AuthResult.class);
-
-        when(authenticatePort.authenticate(email, password))
-                .thenReturn(authResult);
-
-        when(tokenPort.generateToken(authResult))
+        when(tokenPort.generateToken(email))
                 .thenReturn(fakeToken);
 
         // Act
@@ -53,7 +47,7 @@ class SignInUseCaseTest {
         assertEquals(fakeToken, response.token());
 
         verify(authenticatePort).authenticate(email, password);
-        verify(tokenPort).generateToken(authResult);
+        verify(tokenPort).generateToken(email);
     }
 
     @Test
@@ -64,12 +58,7 @@ class SignInUseCaseTest {
 
         SignInRequestDTO request = new SignInRequestDTO(email, password);
 
-        AuthResult authResult = mock(AuthResult.class);
-
-        when(authenticatePort.authenticate(email, password))
-                .thenReturn(authResult);
-
-        when(tokenPort.generateToken(authResult))
+        when(tokenPort.generateToken(email))
                 .thenReturn("token");
 
         // Act
@@ -77,6 +66,6 @@ class SignInUseCaseTest {
 
         // Assert (verifica orden)
         verify(authenticatePort).authenticate(email, password);
-        verify(tokenPort).generateToken(authResult);
+        verify(tokenPort).generateToken(email);
     }
 }

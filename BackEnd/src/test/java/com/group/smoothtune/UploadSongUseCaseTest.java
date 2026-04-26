@@ -3,7 +3,9 @@ package com.group.smoothtune;
 import com.group.smoothtune.application.usecase.Song.UploadSongUseCase;
 import com.group.smoothtune.domain.exception.GenreNotFoundException;
 import com.group.smoothtune.domain.exception.UserNotFoundException;
+import com.group.smoothtune.domain.model.FileResource;
 import com.group.smoothtune.domain.model.Song;
+import com.group.smoothtune.domain.model.UploadResult;
 import com.group.smoothtune.domain.port.*;
 
 import org.junit.jupiter.api.Test;
@@ -12,8 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,16 +35,14 @@ class UploadSongUseCaseTest {
     @Mock
     private GenreRepository genreRepository;
 
-    @Mock
-    private AudioMetadataPort audioMetadataPort;
-
     @InjectMocks
     private UploadSongUseCase useCase;
 
     @Test
-    void shouldUploadSongSuccessfully() {
+    void shouldUploadSongSuccessfully() throws IOException {
         // Arrange
-        InputStream inputStream = new ByteArrayInputStream("audio".getBytes());
+        FileResource audioFile = new FileResource("audio".getBytes(), "song.mp3", "audio/mpeg");
+        FileResource imageFile = new FileResource("image".getBytes(), "cover.jpg", "image/jpeg");
 
         when(userRepository.findById(1L))
                 .thenReturn(Optional.of(mock(com.group.smoothtune.domain.model.User.class)));
@@ -51,21 +50,20 @@ class UploadSongUseCaseTest {
         when(genreRepository.findById(2L))
                 .thenReturn(Optional.of(mock(com.group.smoothtune.domain.model.Genre.class)));
 
-        when(audioMetadataPort.getDuration(any()))
-                .thenReturn(120.0f);
+        UploadResult uploadResult = new UploadResult("path/file.mp3", 120.0f, 1000);
+        when(fileStoragePort.uploadSong(audioFile))
+                .thenReturn(uploadResult);
 
-        when(fileStoragePort.saveFile(any(), anyString(), anyString()))
-                .thenReturn("path/file.mp3");
+        when(fileStoragePort.uploadImage(imageFile))
+                .thenReturn("path/cover.jpg");
 
         when(songRepository.save(any(Song.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0));
 
         // Act
         Song result = useCase.execute(
-                inputStream,
-                "song.mp3",
-                "audio/mpeg",
-                1000L,
+                audioFile,
+                imageFile,
                 "Titulo",
                 "Artista",
                 1L,
@@ -82,7 +80,8 @@ class UploadSongUseCaseTest {
     @Test
     void shouldThrowExceptionWhenUserNotFound() {
         // Arrange
-        InputStream inputStream = new ByteArrayInputStream("audio".getBytes());
+        FileResource audioFile = new FileResource("audio".getBytes(), "song.mp3", "audio/mpeg");
+        FileResource imageFile = new FileResource("image".getBytes(), "cover.jpg", "image/jpeg");
 
         when(userRepository.findById(1L))
                 .thenReturn(Optional.empty());
@@ -90,10 +89,8 @@ class UploadSongUseCaseTest {
         // Act & Assert
         assertThrows(UserNotFoundException.class, () -> {
             useCase.execute(
-                    inputStream,
-                    "song.mp3",
-                    "audio/mpeg",
-                    1000L,
+                    audioFile,
+                    imageFile,
                     "Titulo",
                     "Artista",
                     1L,
@@ -107,7 +104,8 @@ class UploadSongUseCaseTest {
     @Test
     void shouldThrowExceptionWhenGenreNotFound() {
         // Arrange
-        InputStream inputStream = new ByteArrayInputStream("audio".getBytes());
+        FileResource audioFile = new FileResource("audio".getBytes(), "song.mp3", "audio/mpeg");
+        FileResource imageFile = new FileResource("image".getBytes(), "cover.jpg", "image/jpeg");
 
         when(userRepository.findById(1L))
                 .thenReturn(Optional.of(mock(com.group.smoothtune.domain.model.User.class)));
@@ -118,10 +116,8 @@ class UploadSongUseCaseTest {
         // Act & Assert
         assertThrows(GenreNotFoundException.class, () -> {
             useCase.execute(
-                    inputStream,
-                    "song.mp3",
-                    "audio/mpeg",
-                    1000L,
+                    audioFile,
+                    imageFile,
                     "Titulo",
                     "Artista",
                     1L,
