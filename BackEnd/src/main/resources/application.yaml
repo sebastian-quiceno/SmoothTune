@@ -27,16 +27,16 @@ storage:
 cloud:
   aws:
     credentials:
-      access-key: ${AWS_ACCESS_KEY}
-      secret-key: ${AWS_SECRET_KEY}
+      access-key: LLAVEDEACCESODEPRUEBA
+      secret-key: llavesecretadepruebaparas3
     region:
-      static: ${REGION}
+      static: us-east-1
 
 aws:
   bucket:
-    name: ${BUCKET_NAME}
+    name: bucketName
 
 jwt:
   key:
-    secret: ${JWT_KEY}
-    ttl: ${EXPIRATION_TIME}
+    secret: "nh9FZbi/XQer89C4e14U5A8lGn+n0TgFKsjB0xd092U="
+    ttl: 3600000
