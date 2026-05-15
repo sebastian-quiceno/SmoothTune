@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class PlaylistUserSong {
 
     private Long id;
-    private Integer position; // opcional (orden)
+    private Integer position; //orden
 
     private LocalDateTime addedAt;
 

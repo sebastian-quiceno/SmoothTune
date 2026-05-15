@@ -10,31 +10,31 @@ public class Song {
     private String audioPath;
     private Float duration;
     private Integer size;
-    private String artist;
 
     private Long uploaderId;
     private Long genreId;
+    private Long artistId;
     private List<Long> userSongs;
 
-    public Song(String title, Float duration, Integer size, String artist, Long uploaderId, Long genreId) {
+    public Song(String title, Float duration, Integer size, Long artistId, Long uploaderId, Long genreId) {
         this.title = title;
         this.duration = duration;
         this.size = size;
-        this.artist = artist;
         this.uploaderId = uploaderId;
+        this.artistId = artistId;
         this.genreId = genreId;
     }
 
-    public Song(Long id, String title, String imagePath, String audioPath, Float duration, Integer size, String artist, Long uploaderId, Long genreId, List<Long> userSongs) {
+    public Song(Long id, String title, String imagePath, String audioPath, Float duration, Integer size, Long uploaderId, Long genreId, Long artistId, List<Long> userSongs) {
         this.id = id;
         this.title = title;
         this.imagePath = imagePath;
         this.audioPath = audioPath;
         this.duration = duration;
         this.size = size;
-        this.artist = artist;
         this.uploaderId = uploaderId;
         this.genreId = genreId;
+        this.artistId = artistId;
         this.userSongs = userSongs;
     }
 
@@ -62,8 +62,8 @@ public class Song {
         return size;
     }
 
-    public String getArtist() {
-        return artist;
+    public Long getArtistId() {
+        return artistId;
     }
 
     public Long getUploaderId() {
@@ -82,8 +82,8 @@ public class Song {
         this.title = title;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public void setArtistId(Long artistId) {
+        this.artistId = artistId;
     }
 
     public void setDuration(Float duration) {

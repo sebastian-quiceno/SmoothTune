@@ -21,7 +21,6 @@ public class SongEntity {
     private String audioPath;
     private Float duration;
     private Integer size;
-    private String artist;
 
     @ManyToOne
     @JoinColumn(name = "uploaded_by")
@@ -30,6 +29,10 @@ public class SongEntity {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private GenreEntity genre;
+
+    @ManyToOne
+    @JoinColumn(name = "artist_id")
+    private ArtistEntity artist;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
     private Set<UserSongEntity> userSongs = new HashSet<>();

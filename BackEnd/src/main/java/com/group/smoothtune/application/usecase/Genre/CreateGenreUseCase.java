@@ -13,8 +13,6 @@ public class CreateGenreUseCase {
 
     public Genre execute(String name,String description){
         Genre genre = new Genre(name, description);
-        Genre newGenre = genreRepository.save(genre);
-        System.out.println("El ID del genero creado es: "+newGenre.getId());
-        return newGenre;
+        return genreRepository.save(genre);
     }
 }

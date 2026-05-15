@@ -70,7 +70,7 @@ const SignIn = () => {
             />
           </div>
 
-          <ButtonSubmit text="Entrar"/>
+          <ButtonSubmit text="Entrar" color="purple"/>
           
         </form>
 

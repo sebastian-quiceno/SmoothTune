@@ -8,11 +8,9 @@ import com.group.smoothtune.domain.port.SongRepository;
 import java.io.InputStream;
 
 public class GetSongByIdUseCase {
-    private final FileStoragePort fileStoragePort;
     private final SongRepository songRepository;
 
-    public GetSongByIdUseCase(FileStoragePort fileStoragePort, SongRepository songRepository) {
-        this.fileStoragePort = fileStoragePort;
+    public GetSongByIdUseCase(SongRepository songRepository) {
         this.songRepository = songRepository;
     }
 

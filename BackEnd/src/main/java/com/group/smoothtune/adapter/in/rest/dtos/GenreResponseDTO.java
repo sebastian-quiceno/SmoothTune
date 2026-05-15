@@ -1,6 +1,7 @@
 package com.group.smoothtune.adapter.in.rest.dtos;
 
 public record GenreResponseDTO(
+        Long id,
         String name,
         String description
 ){}

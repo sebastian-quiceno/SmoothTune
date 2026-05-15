@@ -2,18 +2,18 @@ import { useState } from "react";
 
 import { Search } from "lucide-react";
 
-type SearchBarProps = {
+type SearchBarProps<T> = {
   value: string;
   onChange: (direccion: string) => void;
-  results: string[];
+  results: T[];
   loading: boolean;
   placeholder: string;
-  renderItem: (direccion: string) => string;
-  onSelect: (direccion: string) => void;
-  keyExtractor: (direccion: string) => string;
+  renderItem: (item: T) => string;
+  onSelect: (item: T) => void;
+  keyExtractor: (item: T) => number;
 };
 
-export const SearchBar = ({
+export const SearchBar = <T,>({
   value,
   onChange,
   results = [],
@@ -22,29 +22,38 @@ export const SearchBar = ({
   renderItem,
   onSelect,
   keyExtractor,
-}: SearchBarProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+}: SearchBarProps<T>) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isSelected, setIsSelected] = useState<boolean>(false);
+  const [selected, setSelected] = useState<string | null>(null);
+
   const showResults = isFocused && value.trim() !== "" && results.length > 0;
+  
+  const blockInput = isSelected && selected !== null;
+
   return (
     <div
       //className="flex flex-row max-w-sm w-full px-2 py-2.5 gap-2 rounded-xl bg-white/10 backdrop-blur-md text-white  hover:bg-white/20 hover:border-white/40 hover:ring-2 hover:ring-white/20 transition-all duration-300"
-      className={`flex flex-col justify-center max-w  rounded-xl backdrop-blur-md text-white  ${isFocused ? "bg-white/10 border-white/40 ring-2 ring-white/20" : "bg-white/15"} transition-all duration-300`}
+      className={`relative flex flex-col justify-center w-[350px] py-2 rounded-xl text-white ${blockInput ? "bg-green-300/70  " : ""}  ${isFocused ? "bg-white/10 border-white/40 ring-2 ring-white/20" : "bg-white/10"} transition-all duration-300`}
     >
       <div className="flex flex-row px-2 gap-2 items-center">
         <Search />
         <input
           type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
+          value={blockInput ? selected : value}
+          onChange={(e) => {
+            onChange(e.target.value);
+            if (isSelected) setIsSelected(false);
+          }}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
           className="
             bg-white/0
+            w-[350px]
           placeholder:text-white/50
             outline-none ring-0
             border-b-black
-            
           "
         />
       </div>
@@ -55,13 +64,16 @@ export const SearchBar = ({
 
       {showResults && (
         <>
-          <hr className="my-2 border-white/40" />
-          <ul className="max-w-sm mt-1 max-h-48 overflow-y-auto">
+          <ul className="absolute top-full left-0 mt-2 w-full max-h-48 overflow-y-auto rounded-xl bg-zinc-900/95 backdrop-blur-md border border-white/10 shadow-xl z-50">
             {results.map((item) => (
               <li
                 key={keyExtractor(item)}
-                onClick={() => onSelect(item)}
-                className="p-2 gap-2 flex flex-row text-white/60 hover:bg-white/20 cursor-pointer"
+                onMouseDown={() => {
+                  onSelect(item);
+                  setIsSelected(true);
+                  setSelected(renderItem(item));
+                }}
+                className="p-2 gap-2 flex flex-row text-white/80 hover:bg-white/10 cursor-pointer"
               >
                 <Search />
                 {renderItem(item)}

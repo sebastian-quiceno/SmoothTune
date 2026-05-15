@@ -115,7 +115,7 @@ const SignUp = () => {
             />
           </div>
 
-          <ButtonSubmit text="Crear"/>
+          <ButtonSubmit text="Crear" color="purple"/>
           
         </form>
 

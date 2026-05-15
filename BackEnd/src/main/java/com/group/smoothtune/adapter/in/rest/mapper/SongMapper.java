@@ -8,10 +8,9 @@ public class SongMapper {
     public static SongResponseDTO toResponse(Song song) {
         return new SongResponseDTO(
                 song.getTitle(),
-                song.getArtist(),
+                song.getArtistId(),
                 song.getUploaderId(),
                 song.getGenreId(),
-                song.getAudioPath(),
                 song.getDuration()
         );
     }

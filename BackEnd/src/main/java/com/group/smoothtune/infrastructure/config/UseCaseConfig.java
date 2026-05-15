@@ -1,7 +1,10 @@
 package com.group.smoothtune.infrastructure.config;
 
+import com.group.smoothtune.application.usecase.Artist.CreateArtistUseCase;
+import com.group.smoothtune.application.usecase.Artist.GetArtistsUseCase;
 import com.group.smoothtune.application.usecase.Genre.CreateGenreUseCase;
 import com.group.smoothtune.application.usecase.Genre.GetGenresUseCase;
+import com.group.smoothtune.application.usecase.Song.GetSongByIdUseCase;
 import com.group.smoothtune.application.usecase.Song.UploadSongUseCase;
 import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
@@ -75,6 +78,11 @@ public class UseCaseConfig {
         );
     }
 
+    @Bean
+    public GetSongByIdUseCase getSongByIdUseCase(SongRepository songRepository){
+        return new GetSongByIdUseCase(songRepository);
+    }
+
     //========= Genre =========
     @Bean
     public CreateGenreUseCase createGenreUseCase(
@@ -86,6 +94,17 @@ public class UseCaseConfig {
     @Bean
     public GetGenresUseCase getGenresUseCase(GenreRepository genreRepository){
         return new GetGenresUseCase(genreRepository);
+    }
+
+    //========= Artist =========
+    @Bean
+    public CreateArtistUseCase createArtistUseCase(ArtistRepository artistRepository){
+        return new CreateArtistUseCase(artistRepository);
+    }
+
+    @Bean
+    public GetArtistsUseCase getArtistUseCase(ArtistRepository artistRepository){
+        return new GetArtistsUseCase(artistRepository);
     }
 
 

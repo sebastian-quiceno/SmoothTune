@@ -29,7 +29,7 @@ public class UploadSongUseCase {
     public Song execute(FileResource audioFile,
                         FileResource imageFile,
                         String title,
-                        String artist,
+                        Long artistId,
                         Long userId,
                         Long genreId) throws IOException {
 
@@ -49,7 +49,7 @@ public class UploadSongUseCase {
                 title,
                 duration,
                 size,
-                artist,
+                artistId,
                 userId,
                 genreId
         );

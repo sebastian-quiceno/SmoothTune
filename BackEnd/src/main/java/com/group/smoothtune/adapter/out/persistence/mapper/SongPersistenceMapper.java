@@ -1,10 +1,7 @@
 package com.group.smoothtune.adapter.out.persistence.mapper;
 
+import com.group.smoothtune.adapter.out.persistence.entity.*;
 import com.group.smoothtune.domain.model.Song;
-import com.group.smoothtune.adapter.out.persistence.entity.GenreEntity;
-import com.group.smoothtune.adapter.out.persistence.entity.SongEntity;
-import com.group.smoothtune.adapter.out.persistence.entity.UserEntity;
-import com.group.smoothtune.adapter.out.persistence.entity.UserSongEntity;
 
 public class SongPersistenceMapper {
 
@@ -16,7 +13,7 @@ public class SongPersistenceMapper {
                 entity.getAudioPath(),
                 entity.getDuration(),
                 entity.getSize(),
-                entity.getArtist(),
+                entity.getArtist().getId(),
                 entity.getUploader().getId(),
                 entity.getGenre().getId(),
                 entity.getUserSongs().stream().map(UserSongEntity::getId).toList()
@@ -32,15 +29,18 @@ public class SongPersistenceMapper {
         entity.setAudioPath(song.getAudioPath());
         entity.setDuration(song.getDuration());
         entity.setSize(song.getSize());
-        entity.setArtist(song.getArtist());
 
         UserEntity user = new UserEntity();
         user.setId(song.getUploaderId());
+
+        ArtistEntity artist = new ArtistEntity();
+        artist.setId(song.getArtistId());
 
         GenreEntity genre = new GenreEntity();
         genre.setId(song.getGenreId());
 
         entity.setUploader(user);
+        entity.setArtist(artist);
         entity.setGenre(genre);
 
         return entity;

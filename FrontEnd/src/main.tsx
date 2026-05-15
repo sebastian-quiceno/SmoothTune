@@ -5,6 +5,9 @@ import SingInPage from './pages/SingInPage.tsx'
 import SingUpPage from './pages/SingUpPage.tsx'
 import Home from './pages/Home.tsx'
 import UserHome from './pages/Music.tsx'
+import GenreForm from './pages/GenreForm.tsx'
+import SongForm from './pages/SongForm.tsx'
+
 import './index.css'
 
 const router = createBrowserRouter([
@@ -23,6 +26,14 @@ const router = createBrowserRouter([
   {
     path: "/userhome",
     element: <UserHome />,
+  },
+  {
+    path: "/creategenre",
+    element: <GenreForm />,
+  },
+  {
+    path: "/subir-cancion",
+    element: <SongForm />,
   },
 ]);
 
