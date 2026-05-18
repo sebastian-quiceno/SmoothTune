@@ -19,12 +19,11 @@ public class DeleteSongUseCase {
 
         Song song = songRepository.findById(songId).orElseThrow(()-> new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
 
-        if (!song.getUploaderId().equals(userId)) {
+        if (!song.getUploader().getId().equals(userId)) {
             throw new AccessDeniedException("No tienes permisos para eliminar esta canción");
         }
 
         fileStoragePort.deleteFile(song.getAudioPath());
-
 
         songRepository.deleteById(songId);
     }

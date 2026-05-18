@@ -1,6 +1,6 @@
 package com.group.smoothtune.adapter.in.rest.mapper;
 
-import com.group.smoothtune.adapter.in.rest.dtos.GenreResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.GenreResponseDTO;
 import com.group.smoothtune.domain.model.Genre;
 
 public class GenreMapper {

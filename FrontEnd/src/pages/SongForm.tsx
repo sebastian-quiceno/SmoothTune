@@ -33,8 +33,7 @@ const SongForm = () => {
   const [image, setImage] = useState<File | null>(null);
 
   const { genresFilters, loading: loadingGenres } = useGenreFilter(queryGenre);
-  const { artistsFilters, loading: loadingArtists } =
-    useArtistFilter(queryArtist);
+  const { artistsFilters, loading: loadingArtists } = useArtistFilter(queryArtist);
   const { loading: loadingApi, error: apiError, uploadSong } = useSongs();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -166,8 +165,9 @@ const SongForm = () => {
           Vista previa
         </h2>
         <SongCard
-          autor={artist ? artist.name : "Agregue el nombre del artista "}
-          songName={title ? title : "Agregue el nombre de la canción"}
+          id={0}
+          artist={artist ? artist.name : "Agregue el nombre del artista "}
+          title={title ? title : "Agregue el nombre de la canción"}
           img={image ? URL.createObjectURL(image) : portraitNotFound}
         />
       </div>

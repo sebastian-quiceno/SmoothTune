@@ -1,4 +1,4 @@
-package com.group.smoothtune.adapter.in.rest.dtos;
+package com.group.smoothtune.adapter.in.rest.dtos.response;
 
 import java.time.LocalDateTime;
 

@@ -16,7 +16,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`w-52 h-12 p-2 ${isSelect ? "bg-[#4E3E81]" : "bg-[#4E3E8130]"} text-white flex flex-row items-center justify-start hover:scale-105 gap-2 rounded-lg transition-all duration-200`}
+      className={`w-60 h-16 px-6 py-2 ${isSelect ? "bg-[#4E3E81]" : "bg-[#4E3E8130]"} text-white flex flex-row items-center justify-start hover:scale-105 gap-2 rounded-2xl transition-all duration-200`}
       onClick={() => {
         onclick(direccion);
       }}

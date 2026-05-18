@@ -45,9 +45,25 @@ public class UserSongRepositoryImpl implements UserSongRepository {
     }
 
     @Override
+    public List<UserSong> findAllByUserId(Long id) {
+        return userSongJpaRepository.findAllByUserIdOrderBySavedAt(id).
+                stream().
+                map(UserSongPersistenceMapper::toDomain).
+                toList();
+    }
+
+    @Override
     public boolean existsByUserIdAndSongId(Long userId, Long songId){
 
         return userSongJpaRepository.existsByUserIdAndSongId(userId, songId);
+    }
+
+    @Override
+    public List<UserSong> getTenMostPlayed(Long userId){
+        return userSongJpaRepository.findTop10ByUserIdOrderByTimesPlayedDesc(userId).
+                stream().
+                map(UserSongPersistenceMapper::toDomain).
+                toList();
     }
 
 }

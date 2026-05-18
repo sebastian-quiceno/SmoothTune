@@ -123,7 +123,7 @@ const SignUp = () => {
           ¿Ya tienes cuenta?{" "}
           <span
             className="text-[#58BDDE] cursor-pointer hover:underline"
-            onClick={() => navigate("/singin")}
+            onClick={() => navigate("/signin")}
           >
             Iniciar Sesión
           </span>

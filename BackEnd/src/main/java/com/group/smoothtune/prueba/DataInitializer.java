@@ -14,11 +14,11 @@ public class DataInitializer {
         return args -> {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            if (userRepo.count() == 0) { // solo si no hay usuarios
+            if (userRepo.count() <= 1) { // solo si no hay usuarios aparte del basico
                 UserEntity user = UserEntity.builder()
                         .email("prueba@test.com")
                         .username("Prueba")
-                        .password(encoder.encode("prueba123")) // contraseña clara -> hash
+                        .password(encoder.encode("prueba123"))
                         .build();
 
                 userRepo.save(user);

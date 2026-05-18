@@ -13,9 +13,10 @@ public class SongPersistenceMapper {
                 entity.getAudioPath(),
                 entity.getDuration(),
                 entity.getSize(),
-                entity.getArtist().getId(),
-                entity.getUploader().getId(),
-                entity.getGenre().getId(),
+                entity.getUploadedAt(),
+                UserPersistenceMapper.toDomain(entity.getUploader()),
+                GenrePersistenceMapper.toDomain(entity.getGenre()),
+                ArtistPersistenceMapper.toDomain(entity.getArtist()),
                 entity.getUserSongs().stream().map(UserSongEntity::getId).toList()
         );
     }
@@ -29,15 +30,16 @@ public class SongPersistenceMapper {
         entity.setAudioPath(song.getAudioPath());
         entity.setDuration(song.getDuration());
         entity.setSize(song.getSize());
+        entity.setUploadedAt(song.getUploadedAt());
 
         UserEntity user = new UserEntity();
-        user.setId(song.getUploaderId());
+        user.setId(song.getUploader().getId());
 
         ArtistEntity artist = new ArtistEntity();
-        artist.setId(song.getArtistId());
+        artist.setId(song.getArtist().getId());
 
         GenreEntity genre = new GenreEntity();
-        genre.setId(song.getGenreId());
+        genre.setId(song.getGenre().getId());
 
         entity.setUploader(user);
         entity.setArtist(artist);

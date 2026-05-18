@@ -1,6 +1,6 @@
 package com.group.smoothtune.infrastructure.exception;
 
-import com.group.smoothtune.adapter.in.rest.dtos.ErrorResponse;
+import com.group.smoothtune.adapter.in.rest.dtos.response.ErrorResponse;
 import com.group.smoothtune.domain.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

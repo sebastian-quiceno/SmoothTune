@@ -1,6 +1,6 @@
 package com.group.smoothtune.adapter.in.rest.mapper;
 
-import com.group.smoothtune.adapter.in.rest.dtos.ArtistResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.ArtistResponseDTO;
 import com.group.smoothtune.domain.model.Artist;
 
 public class ArtistMapper {

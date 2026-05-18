@@ -1,12 +1,11 @@
 package com.group.smoothtune.adapter.in.rest;
 
-import com.group.smoothtune.adapter.in.rest.dtos.ArtistRequestDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.ArtistResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.ArtistRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.ArtistResponseDTO;
 import com.group.smoothtune.adapter.in.rest.mapper.ArtistMapper;
 import com.group.smoothtune.application.usecase.Artist.CreateArtistUseCase;
 import com.group.smoothtune.application.usecase.Artist.GetArtistsUseCase;
 import com.group.smoothtune.domain.model.Artist;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

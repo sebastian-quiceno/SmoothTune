@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class SongEntity {
     private String audioPath;
     private Float duration;
     private Integer size;
+    private LocalDateTime uploadedAt;
 
     @ManyToOne
     @JoinColumn(name = "uploaded_by")
@@ -37,4 +39,8 @@ public class SongEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
     private Set<UserSongEntity> userSongs = new HashSet<>();
 
+    @PrePersist
+    void onCreate() {
+        uploadedAt = LocalDateTime.now();
+    }
 }

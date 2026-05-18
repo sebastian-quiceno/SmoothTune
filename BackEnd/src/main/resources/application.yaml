@@ -34,7 +34,7 @@ cloud:
 
 aws:
   bucket:
-    name: smooth-tune-2006
+    name: ${BUCKET_NAME}
 
 jwt:
   key:

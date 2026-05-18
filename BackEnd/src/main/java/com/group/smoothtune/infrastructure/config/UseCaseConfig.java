@@ -5,10 +5,11 @@ import com.group.smoothtune.application.usecase.Artist.GetArtistsUseCase;
 import com.group.smoothtune.application.usecase.Genre.CreateGenreUseCase;
 import com.group.smoothtune.application.usecase.Genre.GetGenresUseCase;
 import com.group.smoothtune.application.usecase.Song.GetSongByIdUseCase;
+import com.group.smoothtune.application.usecase.Song.GetSongsByUploaderId;
+import com.group.smoothtune.application.usecase.Song.GetSongsUseCase;
 import com.group.smoothtune.application.usecase.Song.UploadSongUseCase;
-import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
-import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
-import com.group.smoothtune.application.usecase.User.FindUserByUsernameUseCase;
+import com.group.smoothtune.application.usecase.User.*;
+import com.group.smoothtune.application.usecase.UserSong.*;
 import com.group.smoothtune.application.usecase.auth.SignInUseCase;
 import com.group.smoothtune.application.usecase.auth.SignUpUseCase;
 import com.group.smoothtune.domain.port.*;
@@ -22,6 +23,11 @@ public class UseCaseConfig {
     @Bean
     public CreateUserUseCase createUserUseCase(UserRepository userRepository) {
         return new CreateUserUseCase(userRepository);
+    }
+
+    @Bean
+    public GetUserByIdUseCase getUserByIdUseCase(UserRepository userRepository){
+        return new GetUserByIdUseCase(userRepository);
     }
 
     @Bean
@@ -68,12 +74,14 @@ public class UseCaseConfig {
             FileStoragePort fileStoragePort,
             SongRepository songRepository,
             UserRepository userRepository,
-            GenreRepository genreRepository
+            GenreRepository genreRepository,
+            ArtistRepository artistRepository
     ) {
         return new UploadSongUseCase(
                 fileStoragePort,
                 songRepository,
                 userRepository,
+                artistRepository,
                 genreRepository
         );
     }
@@ -81,6 +89,42 @@ public class UseCaseConfig {
     @Bean
     public GetSongByIdUseCase getSongByIdUseCase(SongRepository songRepository){
         return new GetSongByIdUseCase(songRepository);
+    }
+
+    @Bean
+    public GetSongsUseCase getSongsUseCase(SongRepository songRepository){
+        return new GetSongsUseCase(songRepository);
+    }
+
+    @Bean
+    public GetSongsByUploaderId getSongsByUploaderId(SongRepository songRepository){
+        return new GetSongsByUploaderId(songRepository);
+    }
+
+    //========= UserSong =========
+    @Bean
+    public AddUserSongUseCase addUserSongUseCase(UserSongRepository userSongRepository, UserRepository userRepository, SongRepository songRepository){
+        return new AddUserSongUseCase(userSongRepository, userRepository, songRepository);
+    }
+
+    @Bean
+    public DeleteUserSongUseCase deleteUserSongUseCase(UserSongRepository userSongRepository){
+        return new DeleteUserSongUseCase(userSongRepository);
+    }
+
+    @Bean
+    public IncrementTimesPlayedUseCase incrementTimesPlayedUseCase(UserSongRepository userSongRepository){
+        return new IncrementTimesPlayedUseCase(userSongRepository);
+    }
+
+    @Bean
+    public GetUserSongsUseCase getUserSongsUseCase(UserSongRepository userSongRepository){
+        return new GetUserSongsUseCase(userSongRepository);
+    }
+
+    @Bean
+    public GetMostPlayedUserSongsUseCase getMostPlayedUserSongsUseCase(UserSongRepository userSongRepository){
+        return new GetMostPlayedUserSongsUseCase(userSongRepository);
     }
 
     //========= Genre =========

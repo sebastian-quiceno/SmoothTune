@@ -1,7 +1,7 @@
 package com.group.smoothtune.adapter.in.rest.mapper;
 
-import com.group.smoothtune.adapter.in.rest.dtos.PlaylistRequestDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.PlaylistResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.PlaylistRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.PlaylistResponseDTO;
 import com.group.smoothtune.domain.model.Playlist;
 
 public class PlaylistMapper {

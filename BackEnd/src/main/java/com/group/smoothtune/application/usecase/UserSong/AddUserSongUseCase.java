@@ -4,6 +4,8 @@ package com.group.smoothtune.application.usecase.UserSong;
 import com.group.smoothtune.domain.exception.SongAlreadySaveException;
 import com.group.smoothtune.domain.exception.SongNotFoundException;
 import com.group.smoothtune.domain.exception.UserNotFoundException;
+import com.group.smoothtune.domain.model.Song;
+import com.group.smoothtune.domain.model.User;
 import com.group.smoothtune.domain.model.UserSong;
 import com.group.smoothtune.domain.port.SongRepository;
 import com.group.smoothtune.domain.port.UserRepository;
@@ -23,8 +25,9 @@ public class AddUserSongUseCase {
 
     public UserSong execute(Long userId, Long songId) {
 
-        userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("No se encontro el usuario con el ID: "+userId));
-        songRepository.findById(songId).orElseThrow(()->new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
+
+       User user = userRepository.findById(userId).orElseThrow(()->new UserNotFoundException("No se encontro el usuario con el ID: "+userId));
+       Song song = songRepository.findById(songId).orElseThrow(()->new SongNotFoundException("No se encontro la cancion con el ID: "+songId));
 
         boolean alreadyExists = userSongRepository
                 .existsByUserIdAndSongId(userId, songId);
@@ -33,7 +36,7 @@ public class AddUserSongUseCase {
             throw new SongAlreadySaveException("La cancion ya esta guardada");
         }
 
-        UserSong userSong = new UserSong(userId, songId);
+        UserSong userSong = new UserSong(user, song);
 
         return userSongRepository.save(userSong);
     }

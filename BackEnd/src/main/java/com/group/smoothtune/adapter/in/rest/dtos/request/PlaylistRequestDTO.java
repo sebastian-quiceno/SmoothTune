@@ -1,4 +1,4 @@
-package com.group.smoothtune.adapter.in.rest.dtos;
+package com.group.smoothtune.adapter.in.rest.dtos.request;
 
 public class PlaylistRequestDTO {
 

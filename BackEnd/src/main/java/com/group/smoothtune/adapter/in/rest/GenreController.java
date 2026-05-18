@@ -1,7 +1,7 @@
 package com.group.smoothtune.adapter.in.rest;
 
-import com.group.smoothtune.adapter.in.rest.dtos.GenreRequestDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.GenreResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.GenreRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.GenreResponseDTO;
 import com.group.smoothtune.adapter.in.rest.mapper.GenreMapper;
 import com.group.smoothtune.application.usecase.Genre.CreateGenreUseCase;
 import com.group.smoothtune.application.usecase.Genre.GetGenresUseCase;

@@ -1,5 +1,6 @@
 package com.group.smoothtune.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Song {
@@ -10,31 +11,37 @@ public class Song {
     private String audioPath;
     private Float duration;
     private Integer size;
+    private LocalDateTime uploadedAt;
 
-    private Long uploaderId;
-    private Long genreId;
-    private Long artistId;
+    private User uploader;
+    private Genre genre;
+    private Artist artist;
+//    private Long uploaderId;
+//    private Long genreId;
+//    private Long artistId;
     private List<Long> userSongs;
 
-    public Song(String title, Float duration, Integer size, Long artistId, Long uploaderId, Long genreId) {
+    public Song(String title, Float duration, Integer size, User uploader, Genre genre, Artist artist) {
+        this.uploadedAt = LocalDateTime.now();
         this.title = title;
         this.duration = duration;
         this.size = size;
-        this.uploaderId = uploaderId;
-        this.artistId = artistId;
-        this.genreId = genreId;
+        this.uploader = uploader;
+        this.genre = genre;
+        this.artist = artist;
     }
 
-    public Song(Long id, String title, String imagePath, String audioPath, Float duration, Integer size, Long uploaderId, Long genreId, Long artistId, List<Long> userSongs) {
+    public Song(Long id, String title, String imagePath, String audioPath, Float duration, Integer size, LocalDateTime uploadedAt, User uploader, Genre genre, Artist artist, List<Long> userSongs) {
         this.id = id;
         this.title = title;
         this.imagePath = imagePath;
         this.audioPath = audioPath;
         this.duration = duration;
         this.size = size;
-        this.uploaderId = uploaderId;
-        this.genreId = genreId;
-        this.artistId = artistId;
+        this.uploadedAt = uploadedAt;
+        this.uploader = uploader;
+        this.genre = genre;
+        this.artist = artist;
         this.userSongs = userSongs;
     }
 
@@ -62,16 +69,20 @@ public class Song {
         return size;
     }
 
-    public Long getArtistId() {
-        return artistId;
+    public User getUploader() {
+        return uploader;
     }
 
-    public Long getUploaderId() {
-        return uploaderId;
+    public Genre getGenre() {
+        return genre;
     }
 
-    public Long getGenreId() {
-        return genreId;
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public LocalDateTime getUploadedAt() {
+        return uploadedAt;
     }
 
     public List<Long> getUserSongs() {
@@ -80,10 +91,6 @@ public class Song {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setArtistId(Long artistId) {
-        this.artistId = artistId;
     }
 
     public void setDuration(Float duration) {
@@ -98,19 +105,27 @@ public class Song {
         this.imagePath = imagePath;
     }
 
-    public void setUploaderId(Long uploaderId) {
-        this.uploaderId = uploaderId;
-    }
-
-    public void setGenreId(Long genreId) {
-        this.genreId = genreId;
-    }
-
     public void setAudioPath(String audioPath) {
         this.audioPath = audioPath;
     }
 
     public void setSize(Integer size) {
         this.size = size;
+    }
+
+    public void setUploadedAt(LocalDateTime uploadedAt) {
+        this.uploadedAt = uploadedAt;
+    }
+
+    public void setUploader(User uploader) {
+        this.uploader = uploader;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 }

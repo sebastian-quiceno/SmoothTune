@@ -5,8 +5,10 @@ import com.group.smoothtune.adapter.out.persistence.mapper.ArtistPersistenceMapp
 import com.group.smoothtune.adapter.out.persistence.repository.jpa.ArtistJpaRepository;
 import com.group.smoothtune.domain.model.Artist;
 import com.group.smoothtune.domain.port.ArtistRepository;
+import org.hibernate.query.Page;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +34,10 @@ public class ArtistRepositoryImpl implements ArtistRepository {
     }
 
     @Override
-    public List<Artist> findAll(){
-        return artistJpaRepository.findAll().stream().map((a) -> ArtistPersistenceMapper.toDomain(a)).toList();
+    public List<Artist> findAll() {
+        return artistJpaRepository.findAll().stream().map(ArtistPersistenceMapper::toDomain).toList();
     }
+
 
     @Override
     public void deleteById(Long id){

@@ -1,8 +1,8 @@
 package com.group.smoothtune.adapter.in.rest;
 
-import com.group.smoothtune.adapter.in.rest.dtos.AuthResponseDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.SignInRequestDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.SignUpRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.AuthResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.SignInRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.SignUpRequestDTO;
 import com.group.smoothtune.application.usecase.auth.SignInUseCase;
 import com.group.smoothtune.application.usecase.auth.SignUpUseCase;
 import org.springframework.http.ResponseEntity;

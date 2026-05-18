@@ -23,6 +23,7 @@ export const SearchBar = <T,>({
   onSelect,
   keyExtractor,
 }: SearchBarProps<T>) => {
+  
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | null>(null);

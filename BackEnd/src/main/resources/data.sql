@@ -1,4 +1,11 @@
 -- =========================
+-- USER
+-- =========================
+
+INSERT INTO users (id, email, password, username, enabled) VALUES
+    (2, 'a@gmail.com', '1234', 'usuario basico', true);
+
+-- =========================
 -- GENRES
 -- =========================
 
@@ -15,8 +22,23 @@ INSERT INTO genres (name, description) VALUES
 -- =========================
 
 INSERT INTO artists (name, biography) VALUES
-                                          ('The Midnight Waves', 'Banda de rock alternativo formada en 2015'),
-                                          ('Luna Rivers', 'Cantante pop reconocida por sus baladas emocionales'),
-                                          ('Miles Harmony', 'Saxofonista de jazz con influencia clasica'),
-                                          ('Urban Pulse', 'Grupo de hip hop enfocado en letras sociales'),
-                                          ('Neon Circuit', 'Productor de musica electronica y DJ internacional');
+                                        ('The Midnight Waves', 'Banda de rock alternativo formada en 2015'),
+                                        ('Luna Rivers', 'Cantante pop reconocida por sus baladas emocionales'),
+                                        ('Miles Harmony', 'Saxofonista de jazz con influencia clasica'),
+                                        ('Urban Pulse', 'Grupo de hip hop enfocado en letras sociales'),
+                                        ('Neon Circuit', 'Productor de musica electronica y DJ internacional');
+
+-- =========================
+-- SONGS
+-- =========================
+
+INSERT INTO songs (title, image_path, audio_path, duration, uploaded_by, genre_id, artist_id) VALUES
+                                        ('Kids With Guns', 'images/822398e3-e048-4d81-8553-f5ded1b8dcec.jpg', 'songs/e3e8af79-4da8-44d0-9254-0c73a04cfe8b.mp3', 226.49593, 2, 1,2),
+                                        ('Senza Mamma', 'images/9722a2dd-c8ad-4507-be08-e9caecce35cf.jpg', 'songs/69f3c7fa-63e4-47ab-a5ed-bd9955e51119.mp3', 154.2603, 2, 3,3);
+
+-- =========================
+-- UserSong
+-- =========================
+INSERT INTO user_songs (user_id, song_id, times_played, saved_at) VALUES
+                                        (2, 1, 0, NOW()),
+                                        (2, 2, 0, NOW());

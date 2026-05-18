@@ -1,3 +1,6 @@
+import { type Artist } from './artist'
+import { type Genre } from './genre'
+
 export type UploadSong = {
   song: File;
   image: File;
@@ -6,15 +9,23 @@ export type UploadSong = {
   userId: number;
   genreId: number;
 }
-	 
+
 
 export type Song = {
-	tittle: string;
-	artist: string
-	uploaderId: number
-	genreId: number
-	getFilePath: string
-	duration: number
+  id: number;
+  tittle: string;
+  artist: Artist;
+  uploader: string;
+  genre: Genre
+  duration: number
+  size: number
+  uploadedAt: Date
 
+}
+
+export type Track = {
+  id: number
+  title: string
+  artist?: string
 }
 

@@ -1,7 +1,7 @@
 package com.group.smoothtune;
 
-import com.group.smoothtune.adapter.in.rest.dtos.AuthResponseDTO;
-import com.group.smoothtune.adapter.in.rest.dtos.SignUpRequestDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.response.AuthResponseDTO;
+import com.group.smoothtune.adapter.in.rest.dtos.request.SignUpRequestDTO;
 import com.group.smoothtune.application.usecase.User.CreateUserUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByEmailUseCase;
 import com.group.smoothtune.application.usecase.User.FindUserByUsernameUseCase;

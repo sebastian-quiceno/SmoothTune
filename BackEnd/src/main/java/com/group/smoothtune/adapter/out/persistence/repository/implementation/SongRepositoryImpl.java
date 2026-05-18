@@ -5,6 +5,8 @@ import com.group.smoothtune.domain.port.SongRepository;
 import com.group.smoothtune.adapter.out.persistence.entity.SongEntity;
 import com.group.smoothtune.adapter.out.persistence.mapper.SongPersistenceMapper;
 import com.group.smoothtune.adapter.out.persistence.repository.jpa.SongJpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,16 +49,21 @@ public class SongRepositoryImpl implements SongRepository {
     }
 
     @Override
-    public List<Song> findAll() {
-        return songJpaRepository.findAll()
-                .stream()
-                .map(SongPersistenceMapper::toDomain)
-                .toList();
+    public Page<Song> findAll(Pageable pageable){
+        return songJpaRepository.findAll(pageable).map(SongPersistenceMapper::toDomain);
     }
 
     @Override
     public void deleteById(Long id) {
         songJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Song> findByUploaderId(Long userId){
+        return songJpaRepository.findByUploaderId(userId).
+                stream().
+                map(SongPersistenceMapper::toDomain).
+                toList();
     }
 }
 

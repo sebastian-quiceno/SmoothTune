@@ -16,7 +16,8 @@ public sealed class DomainException extends RuntimeException
         PlaylistUserSongNotFoundException,
         EmailAlreadyExistException,
         InvalidImageException,
-        InvalidAudioException{
+        InvalidAudioException,
+        ArtistNotFoundException{
 
     public DomainException(String message) {
         super(message);

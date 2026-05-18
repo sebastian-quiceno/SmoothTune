@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
-import { Music, House, CassetteTape, ListMusic, MicVocal } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {
+  Music,
+  House,
+  CassetteTape,
+  ListMusic,
+  MicVocal,
+  CloudUpload,
+} from "lucide-react";
 
 import NewSong from "../components/UploadSongButton";
 import SectionButton from "../components/SectionButton";
-import SearchBar from "../components/SearchBar";
-import UserButton from "../components/UserButton";
-import Greeting from "../components/Greetings";
-import UploadedSongs from "../components/UploadedSongs";
-import SongCard from '../components/SongCard'
+import { HomeSection } from "../components/HomeSection";
+import { SavedSongsSection } from "../components/SavedSongsSection";
+import { UploadedSongsSection } from "../components/UploadedSongsSection";
+import {AllSongsSection} from '../components/AllSongsSection'
+import { Player } from "../components/Player";
 
 import logo from "/logo.png";
 
 //userId: string
 const UserHome = () => {
-  // const components = {
-  //   home: <Home />,
-  //   saved: <Saved />,
-  //   uploaded: <Uploaded />,
-  //   playlist: <Playlistx />,
-  //   artist: <Artist />,
-  // };
-
+  const navigate = useNavigate();
   const components = {
     home: "<Home />",
-    saved: "<Saved />",
-    uploaded: "<Uploaded />",
+    savedSongs: "<Saved />",
+    uploadedSongs: "<Uploaded />",
+    allSongs: "<Songs/>",
     playlist: "<Playlistx />",
     artist: "<Artist />",
   };
@@ -34,22 +36,22 @@ const UserHome = () => {
   const canciones: string[] = ["Time", "Here And Now", "Graduation"];
 
   return (
-    <div className="bg-[#2C2A4C] flex flex-row">
-      <aside className="bg-gradient-to-b from-[#140E28] to-[#302551]  w-64 p-4 flex flex-col items-center">
-        <div className="flex flex-col items-center">
+    <div className="bg-[#2C2A4C] flex flex-row min-h-screen">
+      <aside className="bg-gradient-to-b from-[#140E28] to-[#302551] w-72 p-4 flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4">
           <div className="flex flex-row items-center gap-2">
             <img
               src={logo}
               alt="Vista previa del reproductor de música"
-              className="w-[40px]"
+              className="w-[50px]"
             />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
               Smooth Tune
             </h1>
           </div>
-          <NewSong />
+          <NewSong onClick={() => navigate("/upload-song")} />
         </div>
-        <div className="p-4 gap-5 flex flex-col">
+        <div className="p-4 gap-7 flex flex-col">
           <SectionButton
             Icon={House}
             direccion="asd"
@@ -60,16 +62,25 @@ const UserHome = () => {
           <SectionButton
             Icon={Music}
             direccion="asd"
-            isSelect={sectionSelected === components.saved ? true : false}
-            onclick={() => setSectionSelected(components.saved)}
+            isSelect={sectionSelected === components.savedSongs ? true : false}
+            onclick={() => setSectionSelected(components.savedSongs)}
             text="Canciones guardadas"
+          />
+          <SectionButton
+            Icon={CloudUpload}
+            direccion="asd"
+            isSelect={
+              sectionSelected === components.uploadedSongs ? true : false
+            }
+            onclick={() => setSectionSelected(components.uploadedSongs)}
+            text="Canciones subidas"
           />
           <SectionButton
             Icon={CassetteTape}
             direccion="asd"
-            isSelect={sectionSelected === components.uploaded ? true : false}
-            onclick={() => setSectionSelected(components.uploaded)}
-            text="Canciones subidas"
+            isSelect={sectionSelected === components.allSongs ? true : false}
+            onclick={() => setSectionSelected(components.allSongs)}
+            text="Buscar canciones"
           />
           <SectionButton
             Icon={ListMusic}
@@ -87,40 +98,25 @@ const UserHome = () => {
           />
         </div>
       </aside>
-      <section className="w-full">
-        <header className="flex flex-row justify-between p-5 w-full">
-          <SearchBar
-            value={search}
-            onChange={setSearch}
-            results={canciones}
-            loading={false}
-            placeholder="Buscar Canciones..."
-            keyExtractor={(p) => p}
-            renderItem={(p) => p}
-            onSelect={(item) => {
-              console.log("Profesor seleccionado:", item);
-            }}
-          />
-          <UserButton image="" username="User Name" />
-        </header>
-        <div className="flex flex-row justify-between">
-          <Greeting image="" username="User Name" />
-          <UploadedSongs uploadedSongs={25}/>
+      <div className="flex-1 min-h-screen flex flex-col">
+        {sectionSelected === components.home &&(
+           <HomeSection userId={2} />
+        )}
+        {sectionSelected === components.savedSongs && (
+          <SavedSongsSection id={2} />
+        )}
+        {sectionSelected === components.uploadedSongs && (
+          <UploadedSongsSection id={1} />
+        )}
+        {sectionSelected === components.allSongs && (
+          <AllSongsSection/>
+        )}
+        {sectionSelected === components.playlist && <HomeSection userId={1} />}
+        {sectionSelected === components.artist && <HomeSection userId={1} />}
+        <div className="mt-auto">
+          <Player />
         </div>
-        <hr className="mx-5 my-2 border-[#191527] border-2" />
-
-        <div className="text-white font-bold">
-          <span className="text-4xl">¿Que vas a escuchar hoy?</span>
-        </div>
-
-        <SongCard 
-        autor="PinkFloid"
-        img="" 
-        songName="Wish you where here"
-        />
-
-
-      </section>
+      </div>
     </div>
   );
 };

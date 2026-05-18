@@ -78,7 +78,7 @@ const SignIn = () => {
           ¿No tienes cuenta?{" "}
           <span
             className="text-[#58BDDE] cursor-pointer hover:underline"
-            onClick={() => navigate("/singup")}
+            onClick={() => navigate("/signup")}
           >
             Regístrate
           </span>

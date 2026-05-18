@@ -12,5 +12,8 @@ public interface UserSongRepository {
     List<UserSong> findAll();
     void deleteById(Long id);
 
+    List<UserSong> findAllByUserId(Long id);
     boolean existsByUserIdAndSongId(Long userId, Long songId);
+
+    List<UserSong> getTenMostPlayed(Long userId);
 }

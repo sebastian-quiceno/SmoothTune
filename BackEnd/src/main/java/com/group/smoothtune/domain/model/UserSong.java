@@ -6,25 +6,27 @@ import java.util.List;
 public class UserSong {
 
     private Long id;
-
+    private Integer timesPlayed;
     private LocalDateTime savedAt;
 
-    private Long userId;
-    private Long songId;
+    private User user;
+    private Song song;
 
     private List<Long> playlistUserSongs;
 
-    public UserSong(Long userId, Long songId) {;
+    public UserSong(User user, Song song) {
         this.savedAt = LocalDateTime.now();
-        this.userId = userId;
-        this.songId = songId;
+        this.user = user;
+        this.song = song;
+        this.timesPlayed = 0;
     }
 
-    public UserSong(Long id, LocalDateTime savedAt, Long userId, Long songId, List<Long> playlistUserSongs) {
+    public UserSong(Long id, Integer timesPlayed, LocalDateTime savedAt, User user, Song song, List<Long> playlistUserSongs) {
         this.id = id;
+        this.timesPlayed = timesPlayed;
         this.savedAt = savedAt;
-        this.userId = userId;
-        this.songId = songId;
+        this.user = user;
+        this.song = song;
         this.playlistUserSongs = playlistUserSongs;
     }
 
@@ -32,19 +34,27 @@ public class UserSong {
         return id;
     }
 
+    public Integer getTimesPlayed(){
+        return timesPlayed;
+    }
+
     public LocalDateTime getSavedAt() {
         return savedAt;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public Long getSongId() {
-        return songId;
+    public Song getSong() {
+        return song;
     }
 
     public List<Long> getPlaylistUserSongs() {
         return playlistUserSongs;
+    }
+
+    public void setTimesPlayed(Integer timesPlayed) {
+        this.timesPlayed = timesPlayed;
     }
 }
