@@ -39,14 +39,6 @@ const router = createBrowserRouter([
     path: "/upload-song",
     element: <SongForm />,
   },
-  {
-    path: "/prueba",
-    element: <SongCardExtended id={1} title='kids with guns' artist='gorillaz' genre='rock' uploader='bafe' dateUpload={new Date("2026-05-17")} duration={226} size={0} />,
-  },
-  {
-    path: "/player",
-    element: <Player />,
-  },
 ]);
 
 createRoot(document.getElementById('root')!).render(
