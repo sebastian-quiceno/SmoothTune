@@ -30,8 +30,8 @@ function Home() {
             Smooth Tune
           </h1>
           <div className="p-2 flex justify-normal gap-2">
-            <Button text="Iniciar Sesión" direccion="/singin" />
-            <Button text="Registrarse" direccion="/singup" />
+            <Button text="Iniciar Sesión" direccion="/signin" />
+            <Button text="Registrarse" direccion="/signup" />
           </div>
         </header>
 
